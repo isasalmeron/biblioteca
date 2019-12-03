@@ -13,7 +13,7 @@ import java.util.Vector;
 
 public class ResultadoRelatorio extends javax.swing.JFrame {
     
-    public ResultadoRelatorio(Vector emprestimosPorSerie, int totalEmprestimos){
+    public ResultadoRelatorio(Vector emprestimosPorSerie){
         initComponents();
         setLocationRelativeTo(null);
         initialize();
@@ -22,11 +22,13 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
         
         EmprestimosPorSerie emp;
         int tamEmp = emprestimosPorSerie.size();
+        int totalEmprestimos = 0;
         String txtEmprestimos = "<html>";
 
         for(int i = 0; i < tamEmp; i++){
             emp = (EmprestimosPorSerie) emprestimosPorSerie.elementAt(i);
             txtEmprestimos = txtEmprestimos.concat("&nbsp<b>" + emp.getSerieAluno().trim() + ":</b> " + emp.getQtdEmprestimos() + " livro(s)<br/><br/>");
+            totalEmprestimos = totalEmprestimos + emp.getQtdEmprestimos();
         }
         txtEmprestimos = txtEmprestimos.concat("</html>");
         jLabel1.setText(txtEmprestimos);

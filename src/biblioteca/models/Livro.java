@@ -8,64 +8,57 @@
 package biblioteca.models;
 
 public class Livro {
-    String tituloLivro;
     String autorLivro;
-    String numLivro;
-    String generoLivro;
-    String estanteLivro;
     String editoraLivro;
+    String estanteLivro;
+    String generoLivro;
+    String numLivro;
     int statusLivro;
-
-    public Livro(String tituloL, String autorL, String numL, String generoL, String estanteL, String editoraL, int stat){
-        this.tituloLivro = tituloL;
-        this.autorLivro = autorL;
-        this.numLivro = numL;
-        this.generoLivro = generoL;
-        this.estanteLivro = estanteL;
-        this.statusLivro = stat; 
-        this.editoraLivro = editoraL;
+    String tituloLivro;
+    
+    public Livro(String tituloLivro, String autorLivro, String numLivro, String generoLivro, String estanteLivro, String editoraLivro, int statusLivro) {
+        this.autorLivro = autorLivro;
+        this.editoraLivro = editoraLivro;
+        this.estanteLivro = estanteLivro;
+        this.generoLivro = generoLivro;
+        this.numLivro = numLivro;
+        this.statusLivro = statusLivro;
+        this.tituloLivro = tituloLivro;   
     }
 
-    public String getTituloLivro() {
-        return tituloLivro;
-    }
-    public void setTituloLivro(String tituloLivro) {
-        this.tituloLivro = tituloLivro;
-    }
-
-    public String getAutorLivro(){
+    public String getAutorLivro() {
         return autorLivro;
     }
     public void setAutorLivro(String autorLivro) {
         this.autorLivro = autorLivro;
     }
     
-    public String getNumLivro(){
-        return numLivro;
+    public String getEditoraLivro() {
+        return editoraLivro;
     }
-    public void setNumLivro(String numLivro) {
-        this.numLivro = numLivro;
+    public void setEditoraLivro(String editoraLivro) {
+        this.editoraLivro = editoraLivro;
     }
-
-    public String getGeneroLivro(){
-        return generoLivro;
-    }    
-    public void setGeneroLivro(String generoLivro) {
-        this.generoLivro = generoLivro;
-    }
-
-    public String getEstanteLivro(){
+    
+    public String getEstanteLivro() {
         return estanteLivro;
     }    
     public void setEstanteLivro(String estanteLivro) {
         this.estanteLivro = estanteLivro;
     }
     
-    public String getEditoraLivro(){
-        return editoraLivro;
+    public String getGeneroLivro() {
+        return generoLivro;
+    }    
+    public void setGeneroLivro(String generoLivro) {
+        this.generoLivro = generoLivro;
     }
-    public void setEditoraLivro(String editoraLivro){
-        this.editoraLivro = editoraLivro;
+    
+    public String getNumLivro() {
+        return numLivro;
+    }
+    public void setNumLivro(String numLivro) {
+        this.numLivro = numLivro;
     }
     
     public int getStatusLivro() {
@@ -73,5 +66,12 @@ public class Livro {
     }
     public void setStatusLivro(int statusLivro) {
         this.statusLivro = statusLivro;
+    }
+    
+    public String getTituloLivro() {
+        return tituloLivro;
+    }
+    public void setTituloLivro(String tituloLivro) {
+        this.tituloLivro = tituloLivro;
     }
 }

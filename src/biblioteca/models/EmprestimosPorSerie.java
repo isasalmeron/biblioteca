@@ -8,25 +8,25 @@
 package biblioteca.models;
 
 public class EmprestimosPorSerie {
+    int qtdEmprestimos;
     String serieAluno;
-    Integer qtdEmprestimos;
-
-    public EmprestimosPorSerie(String serieA, Integer qtdE){
-        this.serieAluno = serieA;
-        this.qtdEmprestimos = qtdE;
-    }
     
-    public String getSerieAluno(){
-        return serieAluno;
-    }
-    public void setSerieAluno(String serieAluno) {
+    public EmprestimosPorSerie(String serieAluno, int qtdEmprestimos) {
+        this.qtdEmprestimos = qtdEmprestimos;
         this.serieAluno = serieAluno;
     }
     
     public Integer getQtdEmprestimos() {
         return qtdEmprestimos;
     }
-    public void setQtdEmprestimos(Integer qtdEmprestimos) {
+    public void setQtdEmprestimos(int qtdEmprestimos) {
         this.qtdEmprestimos = qtdEmprestimos;
     }
+    
+    public String getSerieAluno() {
+        return serieAluno;
+    }
+    public void setSerieAluno(String serieAluno) {
+        this.serieAluno = serieAluno;
+    }  
 }

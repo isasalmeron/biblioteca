@@ -540,7 +540,7 @@ public class ConexaoBD {
         return res;
     }
     
-    public Vector relatorio(String dataIni, String dataFim, String genero, Integer totalEmprestimos){
+    public Vector relatorio(String dataIni, String dataFim, String genero){
         ConexaoBD conn = new ConexaoBD();
         String sql, serie;
         ResultSet rs = null;
@@ -573,7 +573,6 @@ public class ConexaoBD {
             while(rs.next()){  
                 empAux = new EmprestimosPorSerie(rs.getString(1), rs.getInt(2));
                 res.addElement(empAux);
-                totalEmprestimos = totalEmprestimos + rs.getInt(2);
             }
         }
         catch(SQLException e){

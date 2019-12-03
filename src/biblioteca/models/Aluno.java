@@ -12,10 +12,10 @@ public class Aluno {
     String raAluno;
     String serieAluno;
 
-    public Aluno(String nomeA, String raA, String serieA){
-        this.nomeAluno = nomeA;
-        this.raAluno = raA;
-        this.serieAluno = serieA;
+    public Aluno(String nomeAluno, String raAluno, String serieAluno) {
+        this.nomeAluno = nomeAluno;
+        this.raAluno = raAluno;
+        this.serieAluno = serieAluno;
     }
 
     public String getNomeAluno() {
@@ -32,7 +32,7 @@ public class Aluno {
         this.raAluno = raAluno;
     }
     
-    public String getSerieAluno(){
+    public String getSerieAluno() {
         return serieAluno;
     }
     public void setSerieAluno(String serieAluno) {

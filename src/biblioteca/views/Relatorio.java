@@ -282,15 +282,14 @@ public class Relatorio extends javax.swing.JFrame {
 
             ConexaoBD conn = new ConexaoBD();
             
-            int totalEmprestimos = 0;
-            Vector emprestimosPorSerie = conn.relatorio(dataIni, dataFim, genero, totalEmprestimos);
+            Vector emprestimosPorSerie = conn.relatorio(dataIni, dataFim, genero);
 
             if(emprestimosPorSerie.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Nenhum livro foi emprestado ainda!");
             }
             else{
                 ResultadoRelatorio t;
-                t = new ResultadoRelatorio(emprestimosPorSerie, totalEmprestimos);
+                t = new ResultadoRelatorio(emprestimosPorSerie);
                 t.setVisible(true);
                 jFormattedTextField1.setText(null);
                 jFormattedTextField2.setText(null);

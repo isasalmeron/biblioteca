@@ -8,25 +8,18 @@
 package biblioteca.models;
 
 public class Emprestimo {
-    String dataEmprestimo;
     String dataDevolucao;
-    String raAluno;
-    String numeroLivro;
+    String dataEmprestimo;
     String dataPrevista;
+    String numeroLivro;
+    String raAluno;
     
-    public Emprestimo(String dataE, String dataD, String raA, String numeroL, String dataP){
-        this.dataEmprestimo = dataE;
-        this.dataDevolucao = dataD;
-        this.raAluno = raA;
-        this.numeroLivro = numeroL;
-        this.dataPrevista = dataP;
-    }
-    
-    public String getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-    public void setDataEmprestimo(String dataEmprestimo) {
+    public Emprestimo(String dataEmprestimo, String dataDevolucao, String raAluno, String numeroLivro, String dataPrevista) {
+        this.dataDevolucao = dataDevolucao;
         this.dataEmprestimo = dataEmprestimo;
+        this.dataPrevista = dataPrevista;
+        this.numeroLivro = numeroLivro;
+        this.raAluno = raAluno;    
     }
     
     public String getDataDevolucao() {
@@ -36,11 +29,18 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
     
-    public String getRaAluno() {
-        return raAluno;
+    public String getDataEmprestimo() {
+        return dataEmprestimo;
     }
-    public void setRaAluno(String raAluno) {
-        this.raAluno = raAluno;
+    public void setDataEmprestimo(String dataEmprestimo) {
+        this.dataEmprestimo = dataEmprestimo;
+    }
+    
+    public String getDataPrevista() {
+        return dataPrevista;
+    }
+    public void setDataPrevista(String dataPrevista) {
+        this.dataPrevista = dataPrevista;
     }
     
     public String getNumeroLivro() {
@@ -50,10 +50,10 @@ public class Emprestimo {
         this.numeroLivro = numeroLivro;
     }
     
-    public String getDataPrevista() {
-        return dataPrevista;
+    public String getRaAluno() {
+        return raAluno;
     }
-    public void setDataPrevista(String dataPrevista) {
-        this.dataPrevista = dataPrevista;
+    public void setRaAluno(String raAluno) {
+        this.raAluno = raAluno;
     }
 }
