@@ -29,7 +29,7 @@ public class AlterarAluno extends javax.swing.JFrame{
         serie = a.getSerieAluno().trim();
         jTextField3.setText(nome);
         jTextField4.setText(a.getRaAluno());
-        jComboBox1.setSelectedItem(serie);
+        jTextField5.setText(serie);
     }
     
     private void initialize(){
@@ -51,7 +51,7 @@ public class AlterarAluno extends javax.swing.JFrame{
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField5 = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
 
@@ -63,7 +63,7 @@ public class AlterarAluno extends javax.swing.JFrame{
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         jPanel2.setBackground(new java.awt.Color(95, 158, 160));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Alteração de Dados ", 2, 2, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Alteração de Dados ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nome: ");
@@ -81,8 +81,8 @@ public class AlterarAluno extends javax.swing.JFrame{
         jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField4.setText("jTextField4");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6ºA", "6ºB", "6ºC", "6ºD", "6ºE", "6ºF", "7ºA", "7ºB", "7ºC", "7ºD", "7ºE", "7ºF", "8ºA", "8ºB", "8ºC", "8ºD", "8ºE", "8ºF", "9ºA", "9ºB", "9ºC", "9ºD", "9ºE", "9ºF", "1ºTF-1ºS", "1ºTI-1ºS", "1ºTF-2ºS", "1ºTI-2ºS", "2ºTF-1ºS", "2ºTI-1ºS", "2ºTF-2ºS", "2ºTI-2ºS", "3ºTF-1ºS", "3ºTI-1ºS", "3ºTF-2ºS", "3ºTI-2ºS", "4ºTF-1ºS", "4ºTI-1ºS", "4ºTF-2ºS", "4ºTI-2ºS", "Funcionário", "Professor" }));
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField5.setText("jTextField5");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,8 +98,7 @@ public class AlterarAluno extends javax.swing.JFrame{
                         .addGap(71, 71, 71)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 75, Short.MAX_VALUE))
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -118,7 +117,7 @@ public class AlterarAluno extends javax.swing.JFrame{
                     .addComponent(jLabel2)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -126,7 +125,7 @@ public class AlterarAluno extends javax.swing.JFrame{
         btCancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btCancelar.setText("Cancelar");
         btCancelar.setToolTipText("Cancelar alteração de dados");
-        btCancelar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelarActionPerformed(evt);
@@ -137,7 +136,7 @@ public class AlterarAluno extends javax.swing.JFrame{
         btAlterar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btAlterar.setText("Alterar");
         btAlterar.setToolTipText("Alterar dados do aluno");
-        btAlterar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAlterarActionPerformed(evt);
@@ -196,13 +195,16 @@ public class AlterarAluno extends javax.swing.JFrame{
         ConexaoBD conn = new ConexaoBD();
         boolean i;
         
-        if(jComboBox1.getSelectedItem().equals("")){
+        if(jTextField5.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Falha ao alterar dados! Informe a série do aluno.");
+        }
+        else if(jTextField3.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Falha ao alterar dados! Informe o nome do aluno.");
         }
         else{
             a.setNomeAluno(jTextField3.getText());
             a.setRaAluno(jTextField4.getText());
-            a.setSerieAluno(jComboBox1.getSelectedItem().toString());
+            a.setSerieAluno(jTextField5.getText());
             al = a;
             i = conn.alteraAluno(a);
             if(i){
@@ -252,7 +254,6 @@ public class AlterarAluno extends javax.swing.JFrame{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCancelar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -260,5 +261,6 @@ public class AlterarAluno extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

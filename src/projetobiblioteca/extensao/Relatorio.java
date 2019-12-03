@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import java.util.Vector;
 
 public class Relatorio extends javax.swing.JFrame {
 
@@ -205,8 +206,8 @@ public class Relatorio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btGerar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
@@ -278,16 +279,21 @@ public class Relatorio extends javax.swing.JFrame {
             genero = jComboBox1.getSelectedItem().toString();
 
             ConexaoBD conn = new ConexaoBD();
-            int vetor[] = new int[38];
+            
+            int totalEmprestimos = 0;
+            Vector emprestimosPorSerie = conn.relatorio(dataIni, dataFim, genero, totalEmprestimos);
 
-            vetor = conn.relatorio(dataIni, dataFim, genero);
-
-            ResultadoRelatorio t;
-            t = new ResultadoRelatorio(vetor);
-            t.setVisible(true);
-            jFormattedTextField1.setText(null);
-            jFormattedTextField2.setText(null);
-            jComboBox1.setSelectedItem("");
+            if(emprestimosPorSerie.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Nenhum livro foi emprestado ainda!");
+            }
+            else{
+                ResultadoRelatorio t;
+                t = new ResultadoRelatorio(emprestimosPorSerie, totalEmprestimos);
+                t.setVisible(true);
+                jFormattedTextField1.setText(null);
+                jFormattedTextField2.setText(null);
+                jComboBox1.setSelectedItem("");
+            }   
         }
     }//GEN-LAST:event_btGerarActionPerformed
 

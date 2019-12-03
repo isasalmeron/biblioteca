@@ -536,151 +536,46 @@ public class ConexaoBD {
         return res;
     }
     
-    public int[] relatorio(String dataIni, String dataFim, String genero){
+    public Vector relatorio(String dataIni, String dataFim, String genero, Integer totalEmprestimos){
         ConexaoBD conn = new ConexaoBD();
-        String sql, serie, genero2;
+        String sql, serie;
         ResultSet rs = null;
-        int vetor[] = new int[38];
+        Vector res = new Vector();
+        EmprestimosPorSerie empAux;
 
         try{
-            sql = "SELECT ra_aluno, numero_livro FROM emprestimos WHERE data_retirada >= '";
+            sql = "SELECT a.serie_aluno, COUNT(a.serie_aluno) AS quantidade "
+                    + "FROM emprestimos AS e "
+                    + "JOIN livros AS l ON e.numero_livro = l.numero_livro "
+                    + "JOIN alunos AS a ON CAST(e.ra_aluno AS VARCHAR(15)) = a.ra_aluno "
+                    + "WHERE e.data_retirada >= '";
             sql += dataIni;
             sql += "' AND ";
-            sql += "data_retirada <= '";
+            sql += "e.data_retirada <= '";
             sql += dataFim;
-            sql += "'";
+            sql += "' ";
+            
+            if(!genero.equals("")){
+                sql += "AND l.genero_livro = '";
+                sql += genero;
+                sql += "' ";
+            }
+           
+            sql += "GROUP BY a.serie_aluno ORDER BY a.serie_aluno;";
             
             st.execute(sql);
             rs = st.getResultSet();
-
+            
             while(rs.next()){  
-                if(genero.equals("") || (!genero.equals("") && genero.equals((conn.retornaGeneroLivro(rs.getString(2))).trim()))){
-                    serie = (conn.retornaSerieAluno(rs.getString(1))).trim();          
-                    switch(serie){
-                        case "6ºA":
-                            vetor[0] = vetor[0] + 1;
-                            break;
-                        case "6ºB":
-                            vetor[1] = vetor[1] + 1;
-                            break;
-                        case "6ºC":
-                            vetor[2] = vetor[2] + 1;
-                            break;
-                        case "6ºD":
-                            vetor[3] = vetor[3] + 1;
-                            break;
-                        case "6ºE":
-                            vetor[4] = vetor[4] + 1;
-                            break;
-                        case "7ºA":
-                            vetor[5] = vetor[5] + 1;
-                            break;
-                        case "7ºB":
-                            vetor[6] = vetor[6] + 1;
-                            break;
-                        case "7ºC":
-                            vetor[7] = vetor[7] + 1;
-                            break;
-                        case "7ºD":
-                            vetor[8] = vetor[8] + 1;
-                            break;
-                        case "7ºE":
-                            vetor[9] = vetor[9] + 1;
-                            break;
-                        case "8ºA":
-                            vetor[10] = vetor[10] + 1;
-                            break;
-                        case "8ºB":
-                            vetor[11] = vetor[11] + 1;
-                            break;
-                        case "8ºC":
-                            vetor[12] = vetor[12] + 1;
-                            break;
-                        case "8ºD":
-                            vetor[13] = vetor[13] + 1;
-                            break;
-                        case "8ºE":
-                            vetor[14] = vetor[14] + 1;
-                            break;
-                        case "9ºA":
-                            vetor[15] = vetor[15] + 1;
-                            break;
-                        case "9ºB":
-                            vetor[16] = vetor[16] + 1;
-                            break;
-                        case "9ºC":
-                            vetor[17] = vetor[17] + 1;
-                            break;
-                        case "9ºD":
-                            vetor[18] = vetor[18] + 1;
-                            break;
-                        case "9ºE":
-                            vetor[19] = vetor[19] + 1;
-                            break;
-                        case "1ºTF-1ºS":
-                            vetor[20] = vetor[20] + 1;
-                            break;
-                        case "1ºTI-1ºS":
-                            vetor[21] = vetor[21] + 1;
-                            break;
-                        case "1ºTF-2ºS":
-                            vetor[22] = vetor[22] + 1;
-                            break;
-                        case "1ºTI-2ºS":
-                            vetor[23] = vetor[23] + 1;
-                            break;
-                        case "2ºTF-1ºS":
-                            vetor[24] = vetor[24] + 1;
-                            break;
-                        case "2ºTI-1ºS":
-                            vetor[25] = vetor[25] + 1;
-                            break;
-                        case "2ºTF-2ºS":
-                            vetor[26] = vetor[26] + 1;
-                            break;
-                        case "2ºTI-2ºS":
-                            vetor[27] = vetor[27] + 1;
-                            break;
-                        case "3ºTF-1ºS":
-                            vetor[28] = vetor[28] + 1;
-                            break;
-                        case "3ºTI-1ºS":
-                            vetor[29] = vetor[29] + 1;
-                            break;
-                        case "3ºTF-2ºS":
-                            vetor[30] = vetor[30] + 1;
-                            break;
-                        case "3ºTI-2ºS":
-                            vetor[31] = vetor[31] + 1;
-                            break;
-                        case "4ºTF-1ºS":
-                            vetor[32] = vetor[32] + 1;
-                            break;
-                        case "4ºTI-1ºS":
-                            vetor[33] = vetor[33] + 1;
-                            break;
-                        case "4ºTF-2ºS":
-                            vetor[34] = vetor[34] + 1;
-                            break;
-                        case "4ºTI-2ºS":
-                            vetor[35] = vetor[35] + 1;
-                            break;
-                        case "Funcionário":
-                            vetor[36] = vetor[36] + 1;
-                            break;
-                        case "Professor":
-                            vetor[37] = vetor[37] + 1;
-                            break;
-                        default:
-                            break;
-                    }
-                } 
+                empAux = new EmprestimosPorSerie(rs.getString(1), rs.getInt(2));
+                res.addElement(empAux);
+                totalEmprestimos = totalEmprestimos + rs.getInt(2);
             }
         }
         catch(SQLException e){
             e.printStackTrace();
         }
             
-        return vetor;
+        return res;
     }
 }

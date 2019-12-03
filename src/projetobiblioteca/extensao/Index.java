@@ -324,7 +324,6 @@ public class Index extends javax.swing.JFrame {
 
     private void btEmprestadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmprestadosActionPerformed
         ConexaoBD conn = new ConexaoBD();
-        Emprestimo emp = new Emprestimo(null, null, null, null, null);
         
         Vector listaEmprestimos = conn.livrosEmprestados();
 

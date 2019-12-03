@@ -38,8 +38,8 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         btVoltar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         btCadastrar = new javax.swing.JButton();
@@ -50,9 +50,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(95, 158, 160));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel2.setBackground(new java.awt.Color(95, 158, 160));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Cadastro de Alunos ", 2, 2, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Cadastro de Alunos ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nome: ");
@@ -87,16 +89,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Para cadastrar um novo aluno, preencha os campos abaixo");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6ºA", "6ºB", "6ºC", "6ºD", "6ºE", "6ºF", "7ºA", "7ºB", "7ºC", "7ºD", "7ºE", "7ºF", "8ºA", "8ºB", "8ºC", "8ºD", "8ºE", "8ºF", "9ºA", "9ºB", "9ºC", "9ºD", "9ºE", "9ºF", "1ºTF-1ºS", "1ºTI-1ºS", "1ºTF-2ºS", "1ºTI-2ºS", "2ºTF-1ºS", "2ºTI-1ºS", "2ºTF-2ºS", "2ºTI-2ºS", "3ºTF-1ºS", "3ºTI-1ºS", "3ºTF-2ºS", "3ºTI-2ºS", "4ºTF-1ºS", "4ºTI-1ºS", "4ºTF-2ºS", "4ºTI-2ºS", "Funcionário", "Professor" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("(digitar o RA sem o hífen):");
+
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField3.setToolTipText("Informe o RA do aluno");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -116,15 +113,14 @@ public class CadastrarAluno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jTextField3))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField1))
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -143,7 +139,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
@@ -153,7 +149,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -161,7 +157,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         btVoltar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.setToolTipText("Voltar ao Menu");
-        btVoltar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btVoltar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarActionPerformed(evt);
@@ -172,7 +168,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         btSair.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btSair.setText("Sair");
         btSair.setToolTipText("Sair do Sistema");
-        btSair.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
@@ -183,7 +179,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         btCadastrar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btCadastrar.setText("Cadastrar");
         btCadastrar.setToolTipText("Cadastrar aluno");
-        btCadastrar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btCadastrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCadastrarActionPerformed(evt);
@@ -224,12 +220,12 @@ public class CadastrarAluno extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -252,13 +248,13 @@ public class CadastrarAluno extends javax.swing.JFrame {
         Aluno a = new Aluno(null, null, null);
         Aluno aAux;
         
-        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jComboBox1.getSelectedItem().equals("")){
+        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Falha ao cadastrar aluno! Campo(s) obrigatório(s) em branco.");
         }
         else{
             a.setNomeAluno(jTextField1.getText());
             a.setRaAluno(jTextField2.getText());
-            a.setSerieAluno(jComboBox1.getSelectedItem().toString());
+            a.setSerieAluno(jTextField3.getText());
             
             i = conn.buscaAluno(a.getRaAluno(), a.getNomeAluno());
             
@@ -268,7 +264,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
                     jTextField1.setText(null);
                     jTextField2.setText(null);
-                    jComboBox1.setSelectedItem("");
+                    jTextField3.setText(null);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Falha ao cadastrar aluno!");
@@ -279,10 +275,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
             }
         }         
     }//GEN-LAST:event_btCadastrarActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -320,7 +312,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -334,5 +325,6 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

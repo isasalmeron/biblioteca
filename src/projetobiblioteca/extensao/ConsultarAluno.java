@@ -39,7 +39,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField3 = new javax.swing.JTextField();
         btVoltar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         btConsultar = new javax.swing.JButton();
@@ -65,7 +65,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         jPanel2.setBackground(new java.awt.Color(95, 158, 160));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Consulta de Alunos ", 2, 2, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, " Consulta de Alunos ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nome: ");
@@ -88,8 +88,8 @@ public class ConsultarAluno extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Série: ");
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "6ºA", "6ºB", "6ºC", "6ºD", "6ºE", "6ºF", "7ºA", "7ºB", "7ºC", "7ºD", "7ºE", "7ºF", "8ºA", "8ºB", "8ºC", "8ºD", "8ºE", "8ºF", "9ºA", "9ºB", "9ºC", "9ºD", "9ºE", "9ºF", "1ºTF-1ºS", "1ºTI-1ºS", "1ºTF-2ºS", "1ºTI-2ºS", "2ºTF-1ºS", "2ºTI-1ºS", "2ºTF-2ºS", "2ºTI-2ºS", "3ºTF-1ºS", "3ºTI-1ºS", "3ºTF-2ºS", "3ºTI-2ºS", "4ºTF-1ºS", "4ºTI-1ºS", "4ºTF-2ºS", "4ºTI-2ºS", "Funcionário", "Professor" }));
+        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jTextField3.setToolTipText("Informe o RA do aluno");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -108,10 +108,10 @@ public class ConsultarAluno extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextField3))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3))
@@ -136,7 +136,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -144,7 +144,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
         btVoltar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btVoltar.setText("Voltar");
         btVoltar.setToolTipText("Voltar ao Menu");
-        btVoltar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btVoltar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarActionPerformed(evt);
@@ -155,7 +155,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
         btSair.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btSair.setText("Sair");
         btSair.setToolTipText("Sair do sistema");
-        btSair.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btSair.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSairActionPerformed(evt);
@@ -166,7 +166,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
         btConsultar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btConsultar.setText("Consultar");
         btConsultar.setToolTipText("Consultar aluno");
-        btConsultar.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        btConsultar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btConsultarActionPerformed(evt);
@@ -226,14 +226,14 @@ public class ConsultarAluno extends javax.swing.JFrame {
 
         a.setNomeAluno(jTextField1.getText());
         a.setRaAluno(jTextField2.getText());
-        a.setSerieAluno(jComboBox1.getSelectedItem().toString());
+        a.setSerieAluno(jTextField3.getText());
         
         ResultadoConsultaAluno t;
         t = new ResultadoConsultaAluno(a, 0);
         t.setVisible(true);
         jTextField1.setText(null);
         jTextField2.setText(null);
-        jComboBox1.setSelectedItem("");
+        jTextField3.setText(null);
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
@@ -278,7 +278,6 @@ public class ConsultarAluno extends javax.swing.JFrame {
     private javax.swing.JButton btConsultar;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -289,6 +288,7 @@ public class ConsultarAluno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
