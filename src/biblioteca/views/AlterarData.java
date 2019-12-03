@@ -7,46 +7,48 @@
 
 package biblioteca.views;
 
-import biblioteca.ConexaoBD;
-import biblioteca.models.Emprestimo;
-import biblioteca.views.ResultadoConsultaEmprestimo;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import biblioteca.ConexaoBD;
+import biblioteca.models.Emprestimo;
 
 public class AlterarData extends javax.swing.JFrame {
-    private Vector resAux;
-    private int posicao;
-    private Emprestimo empr;
     
-    public AlterarData(Vector res, int posicaoAtual, Emprestimo empre) throws ParseException {
-        Emprestimo emp = (Emprestimo) res.elementAt(posicaoAtual);
+    private Emprestimo empr;
+    private int posicao;
+    
+    public AlterarData(ArrayList res, int posicaoAtual, Emprestimo empre) throws ParseException {
+        Emprestimo emp = (Emprestimo) res.get(posicaoAtual);
+        
         initComponents();
         setLocationRelativeTo(null);
         initialize();
-        resAux = res;
+
         posicao = posicaoAtual;
         empr = empre;
-        jTextField1.setText(emp.getNumeroLivro());
-        jTextField2.setText(emp.getRaAluno());
+        
+        numeroLivroField.setText(emp.getNumeroLivro());
+        raAlunoField.setText(emp.getRaAluno());
+        
         SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");  
         SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");   
-        String retirada = out.format(in.parse(emp.getDataEmprestimo().toString())); 
-        jTextField3.setText(retirada);
+        String retirada = out.format(in.parse(emp.getDataEmprestimo())); 
+        dtEmprestimoField.setText(retirada);
     }
     
     private void initialize(){
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
 
-    private AlterarData(Object object, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private AlterarData() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @SuppressWarnings("unchecked")
@@ -59,10 +61,10 @@ public class AlterarData extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        numeroLivroField = new javax.swing.JTextField();
+        raAlunoField = new javax.swing.JTextField();
+        dtEmprestimoField = new javax.swing.JTextField();
+        dtDevolucaoFormattedField = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btCancelar = new javax.swing.JButton();
@@ -90,24 +92,29 @@ public class AlterarData extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Data de devolução: ");
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField1.setText("jTextField1");
+        numeroLivroField.setEditable(false);
+        numeroLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        numeroLivroField.setToolTipText("");
+        numeroLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField2.setText("jTextField2");
+        raAlunoField.setEditable(false);
+        raAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        raAlunoField.setToolTipText("");
+        raAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField3.setEditable(false);
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField3.setText("jTextField3");
+        dtEmprestimoField.setEditable(false);
+        dtEmprestimoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtEmprestimoField.setToolTipText("");
+        dtEmprestimoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
+        dtDevolucaoFormattedField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            dtDevolucaoFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtDevolucaoFormattedField.setToolTipText("Informe a data em que o livro foi devolvido");
+        dtDevolucaoFormattedField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Ao alterar a data de devolução, o livro");
@@ -123,25 +130,26 @@ public class AlterarData extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(raAlunoField))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(numeroLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(dtEmprestimoField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(dtDevolucaoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
@@ -151,27 +159,27 @@ public class AlterarData extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(numeroLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(dtEmprestimoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(dtDevolucaoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         btCancelar.setBackground(new java.awt.Color(255, 255, 255));
@@ -218,7 +226,7 @@ public class AlterarData extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btAlterar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,6 +246,7 @@ public class AlterarData extends javax.swing.JFrame {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.dispose();
         ResultadoConsultaEmprestimo t;
+        
         try {
             t = new ResultadoConsultaEmprestimo(empr, posicao);
             t.setVisible(true);
@@ -247,41 +256,40 @@ public class AlterarData extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        Emprestimo emp = new Emprestimo(null, null, null, null, null);    
         ConexaoBD conn = new ConexaoBD();
-        boolean i, j;
+        Emprestimo emp = new Emprestimo(null, null, null, null, null);
         
-        if(jFormattedTextField1.getText().equals("  /  /    ")){
+        if (dtDevolucaoFormattedField.getText().equals("  /  /    ")) {
             JOptionPane.showMessageDialog(null, "Erro! Informe uma nova data de devolução.");
-        }
-        else{
-            emp.setNumeroLivro(jTextField1.getText());
-            emp.setRaAluno(jTextField2.getText());
-            emp.setDataEmprestimo(jTextField3.getText());
+        } else {
+            emp.setNumeroLivro(numeroLivroField.getText());
+            emp.setRaAluno(raAlunoField.getText());
+            emp.setDataEmprestimo(dtEmprestimoField.getText());
             
-            try{        
-                DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Calendar dtEmp = Calendar.getInstance();
+            try {
                 Calendar dtDev = Calendar.getInstance();
-                dtEmp.setTime(sdf.parse(jTextField3.getText()));;
-                dtDev.setTime(sdf.parse(jFormattedTextField1.getText()));
+                Calendar dtEmp = Calendar.getInstance();
+                DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                
+                dtEmp.setTime(sdf.parse(dtEmprestimoField.getText()));
+                dtDev.setTime(sdf.parse(dtDevolucaoFormattedField.getText()));
 
-                if(dtDev.before(dtEmp)){
+                if (dtDev.before(dtEmp)) {
                     JOptionPane.showMessageDialog(null, "Erro! Data de devolução inválida.");
+                    
                     return;
                 }            
-            }catch(ParseException e){ 
-                
+            } catch (ParseException ex) { 
+                Logger.getLogger(AlterarData.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            emp.setDataDevolucao(jFormattedTextField1.getText());
+            emp.setDataDevolucao(dtDevolucaoFormattedField.getText());
             
-            i = conn.alteraData(emp);
-            if(i){
-                j = conn.alteraStatus(emp.getNumeroLivro(), 1);
-                if(j){
+            if (conn.alteraData(emp)) {      
+                if (conn.alteraStatus(emp.getNumeroLivro(), 1)) {
                     JOptionPane.showMessageDialog(null, "Data de devolução alterada com sucesso!");
                     this.dispose();
+                    
                     ResultadoConsultaEmprestimo t;
                     try {
                         t = new ResultadoConsultaEmprestimo(empr, posicao);
@@ -289,53 +297,26 @@ public class AlterarData extends javax.swing.JFrame {
                     } catch (ParseException ex) {
                         Logger.getLogger(AlterarData.class.getName()).log(Level.SEVERE, null, ex);
                     } 
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Falha ao alterar data de devolução!");
                 }     
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Falha ao alterar data de devolução!");
             }
         }
     }//GEN-LAST:event_btAlterarActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AlterarData(null, -1).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AlterarData().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCancelar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField dtDevolucaoFormattedField;
+    private javax.swing.JTextField dtEmprestimoField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -344,8 +325,7 @@ public class AlterarData extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField numeroLivroField;
+    private javax.swing.JTextField raAlunoField;
     // End of variables declaration//GEN-END:variables
 }

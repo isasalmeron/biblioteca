@@ -7,89 +7,86 @@
 
 package biblioteca.views;
 
-import biblioteca.ConexaoBD;
-import biblioteca.models.Emprestimo;
 import java.awt.Toolkit;
-import static java.lang.System.in;
+import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import biblioteca.ConexaoBD;
+import biblioteca.models.Emprestimo;
 
 public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
    
-    private int posicaoAtual;
-    private Vector resAux;
+    private ArrayList resAux;
     private Emprestimo empr;
-
+    private int posicaoAtual;
+    
     public ResultadoConsultaEmprestimo(Emprestimo emp, int posicao) throws ParseException {
         ConexaoBD conn = new ConexaoBD();
-        Vector listaEmprestimos = conn.consultaEmprestimo(emp);
+        ArrayList listaEmprestimos = conn.consultaEmprestimo(emp);
 
-        if(listaEmprestimos.size() > 0){
+        if (listaEmprestimos.size() > 0) {
             initComponents();
             setLocationRelativeTo(null);
             initialize();
+            
             resAux = listaEmprestimos;
             posicaoAtual = posicao;
             empr = emp;
+            
             exibicao(resAux, posicao);
-        }
-        else{
+        } else{
             JOptionPane.showMessageDialog(null, "Empréstimo não encontrado!");
-            return;
         }        
     }
     
-    private void initialize(){
+    private void initialize() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
     
-    private ResultadoConsultaEmprestimo(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private ResultadoConsultaEmprestimo() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private void exibicao(Vector res, int posicao) throws ParseException{
+    private void exibicao(ArrayList res, int posicao) throws ParseException {
         ConexaoBD conn = new ConexaoBD();
-        Emprestimo emp = (Emprestimo) res.elementAt(posicao);
-        posicaoAtual = posicao;
+        Emprestimo emp = (Emprestimo) res.get(posicao);
+        SimpleDateFormat in = new SimpleDateFormat("yyyy-MM-dd");  
+        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
+        String retirada = out.format(in.parse(emp.getDataEmprestimo())); 
+        String prevista = out.format(in.parse(emp.getDataPrevista()));
         
-        SimpleDateFormat in= new SimpleDateFormat("yyyy-MM-dd");  
-        SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");   
-        String retirada = out.format(in.parse(emp.getDataEmprestimo().toString())); 
-        String prevista = out.format(in.parse(emp.getDataPrevista().toString()));
-        jLabel8.setText(conn.retornaNomeLivro(emp.getNumeroLivro()));
-        jLabel9.setText(emp.getNumeroLivro());
-        jLabel10.setText(conn.retornaNomeAluno(emp.getRaAluno()));
-        jLabel11.setText(emp.getRaAluno());
-        jLabel12.setText(retirada);
-        jLabel13.setText(prevista);
-        jLabel7.setText(new String ((posicaoAtual + 1) + "/" + res.size()));
+        posicaoAtual = posicao;
+ 
+        tituloLivroLabel.setText(conn.retornaNomeLivro(emp.getNumeroLivro()));
+        numLivroLabel.setText(emp.getNumeroLivro());
+        nomeAlunoLabel.setText(conn.retornaNomeAluno(emp.getRaAluno()));
+        raAlunoLabel.setText(emp.getRaAluno());
+        dtEmprestimoLabel.setText(retirada);
+        dtPrevDevolucaoLabel.setText(prevista);
+        contPagLabel.setText(((posicaoAtual + 1) + "/" + res.size()));
 
-        if(emp.getDataDevolucao() != null){  
-            String devolucao = out.format(in.parse(emp.getDataDevolucao().toString()));
-            jLabel15.setText(devolucao);
+        if (emp.getDataDevolucao() != null) {  
+            String devolucao = out.format(in.parse(emp.getDataDevolucao()));
+            
+            dtDevolucaoLabel.setText(devolucao);
             btAlterar.setEnabled(false);
-        }
-        else{
-            jLabel15.setText("Não devolvido");
+        } else {
+            dtDevolucaoLabel.setText("Não devolvido");
             btAlterar.setEnabled(true);
         }
         
-        if(emp.equals(res.firstElement())){
+        if (emp.equals(res.get(0))) {
             btAnterior.setEnabled(false);
-        }
-        else{
+        } else {
             btAnterior.setEnabled(true);
         }
 
-        if(emp.equals(res.lastElement())){
+        if (emp.equals(res.get(res.size()-1))) {
             btProximo.setEnabled(false);
-        }
-        else{
+        } else {
             btProximo.setEnabled(true);
         }
     }
@@ -106,19 +103,19 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        tituloLivroLabel = new javax.swing.JLabel();
+        numLivroLabel = new javax.swing.JLabel();
+        nomeAlunoLabel = new javax.swing.JLabel();
+        raAlunoLabel = new javax.swing.JLabel();
+        dtEmprestimoLabel = new javax.swing.JLabel();
+        dtPrevDevolucaoLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         btAlterar = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
+        dtDevolucaoLabel = new javax.swing.JLabel();
         btAnterior = new javax.swing.JButton();
         btProximo = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        contPagLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Eureka!");
@@ -147,23 +144,23 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setText("Data prevista de devolução: ");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel8.setText("jLabel8");
+        tituloLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tituloLivroLabel.setText("O menino do pijama listrado");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel9.setText("jLabel9");
+        numLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        numLivroLabel.setText("120");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("jLabel10");
+        nomeAlunoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        nomeAlunoLabel.setText("Isabela Salmeron Boschi");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel11.setText("jLabel11");
+        raAlunoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        raAlunoLabel.setText("123456");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel12.setText("jLabel12");
+        dtEmprestimoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtEmprestimoLabel.setText("03/12/2019");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel13.setText("jLabel13");
+        dtPrevDevolucaoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtPrevDevolucaoLabel.setText("18/12/2019");
 
         jPanel3.setBackground(new java.awt.Color(95, 158, 160));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
@@ -182,8 +179,8 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("jLabel15");
+        dtDevolucaoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtDevolucaoLabel.setText("10/12/2019");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -200,7 +197,7 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                         .addGap(38, 38, 38))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(67, 67, 67)
-                .addComponent(jLabel15)
+                .addComponent(dtDevolucaoLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -209,7 +206,7 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel15)
+                .addComponent(dtDevolucaoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(btAlterar)
                 .addGap(23, 23, 23))
@@ -223,34 +220,39 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(numLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(nomeAlunoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(tituloLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dtPrevDevolucaoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dtEmprestimoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(raAlunoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(31, 31, 31)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,29 +260,29 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel8))
+                    .addComponent(tituloLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel9))
+                    .addComponent(numLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel10))
+                    .addComponent(nomeAlunoLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel11))
+                            .addComponent(raAlunoLabel))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel12))
+                            .addComponent(dtEmprestimoLabel))
                         .addGap(28, 28, 28)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel13)))
+                            .addComponent(dtPrevDevolucaoLabel)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -309,8 +311,9 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("jLabel17");
+        contPagLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        contPagLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        contPagLabel.setText("1/100");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -319,9 +322,9 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(btAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(167, 167, 167)
+                .addGap(18, 18, 18)
+                .addComponent(contPagLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -338,7 +341,7 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAnterior)
                     .addComponent(btProximo)
-                    .addComponent(jLabel7))
+                    .addComponent(contPagLabel))
                 .addGap(25, 25, 25))
         );
 
@@ -362,7 +365,6 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return;
     }//GEN-LAST:event_btProximoActionPerformed
 
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
@@ -371,50 +373,22 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return;
     }//GEN-LAST:event_btAnteriorActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         this.dispose();
-        AlterarData t;
+        
         try {
-            t = new AlterarData(resAux, posicaoAtual, empr);
+            AlterarData t = new AlterarData(resAux, posicaoAtual, empr);
             t.setVisible(true);
         } catch (ParseException ex) {
             Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }//GEN-LAST:event_btAlterarActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaEmprestimo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResultadoConsultaEmprestimo(null).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ResultadoConsultaEmprestimo().setVisible(true);
         });
     }
 
@@ -422,23 +396,23 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btAnterior;
     private javax.swing.JButton btProximo;
+    private javax.swing.JLabel contPagLabel;
+    private javax.swing.JLabel dtDevolucaoLabel;
+    private javax.swing.JLabel dtEmprestimoLabel;
+    private javax.swing.JLabel dtPrevDevolucaoLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel nomeAlunoLabel;
+    private javax.swing.JLabel numLivroLabel;
+    private javax.swing.JLabel raAlunoLabel;
+    private javax.swing.JLabel tituloLivroLabel;
     // End of variables declaration//GEN-END:variables
 }

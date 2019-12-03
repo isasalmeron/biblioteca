@@ -7,40 +7,38 @@
 
 package biblioteca.views;
 
+import java.awt.Toolkit;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import biblioteca.ConexaoBD;
 import biblioteca.models.Aluno;
-import biblioteca.views.ResultadoConsultaAluno;
-import java.awt.Toolkit;
-import java.util.Vector;
-import javax.swing.JOptionPane;
 
-public class AlterarAluno extends javax.swing.JFrame{
-    private Vector resAux;
+public class AlterarAluno extends javax.swing.JFrame {
+    
     private int posicao;
     private Aluno al;
     
-    public AlterarAluno(Vector res, int posicaoAtual, Aluno alu) {
-        Aluno a = (Aluno) res.elementAt(posicaoAtual);
-        String nome, serie;
+    public AlterarAluno(ArrayList res, int posicaoAtual, Aluno a) {
+        Aluno aluno = (Aluno) res.get(posicaoAtual);
+        
         initComponents();
         setLocationRelativeTo(null);
         initialize();
-        resAux = res;
+        
         posicao = posicaoAtual;
-        al = alu;
-        nome = a.getNomeAluno().trim();
-        serie = a.getSerieAluno().trim();
-        jTextField3.setText(nome);
-        jTextField4.setText(a.getRaAluno());
-        jTextField5.setText(serie);
+        al = a;
+        
+        nomeAlunoField.setText(aluno.getNomeAluno().trim());
+        raAlunoField.setText(aluno.getRaAluno());
+        serieAlunoField.setText(aluno.getSerieAluno().trim());
     }
     
     private void initialize(){
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
 
-    private AlterarAluno(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private AlterarAluno() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @SuppressWarnings("unchecked")
@@ -52,9 +50,9 @@ public class AlterarAluno extends javax.swing.JFrame{
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        nomeAlunoField = new javax.swing.JTextField();
+        raAlunoField = new javax.swing.JTextField();
+        serieAlunoField = new javax.swing.JTextField();
         btCancelar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
 
@@ -77,15 +75,18 @@ public class AlterarAluno extends javax.swing.JFrame{
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Série: ");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField3.setText("jTextField3");
+        nomeAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        nomeAlunoField.setToolTipText("Nome do aluno");
+        nomeAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField4.setEditable(false);
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField4.setText("jTextField4");
+        raAlunoField.setEditable(false);
+        raAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        raAlunoField.setToolTipText("RA do aluno");
+        raAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField5.setText("jTextField5");
+        serieAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        serieAlunoField.setToolTipText("Série do aluno");
+        serieAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -97,15 +98,15 @@ public class AlterarAluno extends javax.swing.JFrame{
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
+                        .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                        .addComponent(serieAlunoField, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3)))
+                        .addComponent(nomeAlunoField)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -114,13 +115,13 @@ public class AlterarAluno extends javax.swing.JFrame{
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(serieAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -170,7 +171,7 @@ public class AlterarAluno extends javax.swing.JFrame{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAlterar)
                     .addComponent(btCancelar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,45 +190,38 @@ public class AlterarAluno extends javax.swing.JFrame{
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         this.dispose();
+        
         ResultadoConsultaAluno t = new ResultadoConsultaAluno(al, posicao);
         t.setVisible(true);
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
-        Aluno a = new Aluno(null, null, null);
+        Aluno aluno = new Aluno(null, null, null);
         ConexaoBD conn = new ConexaoBD();
-        boolean i;
-        
-        if(jTextField5.getText().equals("")){
+         
+        if (serieAlunoField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Falha ao alterar dados! Informe a série do aluno.");
-        }
-        else if(jTextField3.getText().equals("")){
+        } else if (nomeAlunoField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Falha ao alterar dados! Informe o nome do aluno.");
-        }
-        else{
-            a.setNomeAluno(jTextField3.getText());
-            a.setRaAluno(jTextField4.getText());
-            a.setSerieAluno(jTextField5.getText());
-            al = a;
-            i = conn.alteraAluno(a);
-            if(i){
+        } else{
+            aluno.setNomeAluno(nomeAlunoField.getText());
+            aluno.setRaAluno(raAlunoField.getText());
+            aluno.setSerieAluno(serieAlunoField.getText());
+            al = aluno;
+            
+            if (conn.alteraAluno(aluno)) {
                 JOptionPane.showMessageDialog(null, "Dados do aluno alterados com sucesso!");
                 this.dispose();
+                
                 ResultadoConsultaAluno t = new ResultadoConsultaAluno(al, posicao);
                 t.setVisible(true);     
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Falha ao alterar dados do aluno!");
             }
         }
     }//GEN-LAST:event_btAlterarActionPerformed
    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -235,22 +229,12 @@ public class AlterarAluno extends javax.swing.JFrame{
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AlterarAluno(null).setVisible(true);
-            }
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new AlterarAluno().setVisible(true);
         });
     }
 
@@ -262,8 +246,8 @@ public class AlterarAluno extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField nomeAlunoField;
+    private javax.swing.JTextField raAlunoField;
+    private javax.swing.JTextField serieAlunoField;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,16 +4,17 @@
     Arquivo: ResultadoRelatorio.java
 
 * ================================================================== */
+
 package biblioteca.views;
 
-import biblioteca.models.EmprestimosPorSerie;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.util.Vector;
+import java.util.ArrayList;
+import biblioteca.models.EmprestimosPorSerie;
 
 public class ResultadoRelatorio extends javax.swing.JFrame {
     
-    public ResultadoRelatorio(Vector emprestimosPorSerie){
+    public ResultadoRelatorio(ArrayList emprestimosPorSerie) {
         initComponents();
         setLocationRelativeTo(null);
         initialize();
@@ -25,23 +26,23 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
         int totalEmprestimos = 0;
         String txtEmprestimos = "<html>";
 
-        for(int i = 0; i < tamEmp; i++){
-            emp = (EmprestimosPorSerie) emprestimosPorSerie.elementAt(i);
+        for (int i = 0; i < tamEmp; i++) {
+            emp = (EmprestimosPorSerie) emprestimosPorSerie.get(i);
             txtEmprestimos = txtEmprestimos.concat("&nbsp<b>" + emp.getSerieAluno().trim() + ":</b> " + emp.getQtdEmprestimos() + " livro(s)<br/><br/>");
             totalEmprestimos = totalEmprestimos + emp.getQtdEmprestimos();
         }
         txtEmprestimos = txtEmprestimos.concat("</html>");
-        jLabel1.setText(txtEmprestimos);
+        empPorSerieLabel.setText(txtEmprestimos);
         
-        jLabel2.setText("<html>&nbsp<b>Total de empréstimos:</b> " + totalEmprestimos + " livro(s)</html>");
+        totalEmprestimosLabel.setText("<html>&nbsp<b>Total de empréstimos:</b> " + totalEmprestimos + " livro(s)</html>");
     }
     
-    private void initialize(){
+    private void initialize() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
     
     private ResultadoRelatorio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @SuppressWarnings("unchecked")
@@ -52,8 +53,8 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        empPorSerieLabel = new javax.swing.JLabel();
+        totalEmprestimosLabel = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -81,15 +82,15 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jLabel1.setBackground(new java.awt.Color(95, 158, 160));
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("jLabel1");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jScrollPane1.setViewportView(jLabel1);
+        empPorSerieLabel.setBackground(new java.awt.Color(95, 158, 160));
+        empPorSerieLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        empPorSerieLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        empPorSerieLabel.setText("jLabel1");
+        empPorSerieLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jScrollPane1.setViewportView(empPorSerieLabel);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("jLabel2");
+        totalEmprestimosLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        totalEmprestimosLabel.setText("Total de empréstimos: 6966 livro(s)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,7 +100,7 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(totalEmprestimosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -108,7 +109,7 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(totalEmprestimosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
 
@@ -144,43 +145,17 @@ public class ResultadoRelatorio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResultadoRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResultadoRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResultadoRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResultadoRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResultadoRelatorio().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ResultadoRelatorio().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel empPorSerieLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel totalEmprestimosLabel;
     // End of variables declaration//GEN-END:variables
 }

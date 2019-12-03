@@ -7,65 +7,65 @@
 
 package biblioteca.views;
 
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
 import biblioteca.ConexaoBD;
 import biblioteca.models.Livro;
-import java.awt.Toolkit;
-import java.util.Vector;
-import javax.swing.JOptionPane;
 
 public class ResultadoConsultaLivro extends javax.swing.JFrame {
     
-    private int posicaoAtual;
-    private Vector resAux;
+    private ArrayList resAux;
     private Livro livr;
+    private int posicaoAtual;
     
-    public ResultadoConsultaLivro(Vector listaLivros, int posicao, Livro l) {
-            initComponents();
-            setLocationRelativeTo(null);
-            initialize();
-            resAux = listaLivros;
-            posicaoAtual = posicao;
-            livr = l;
-            exibicao(resAux, posicaoAtual);
+    public ResultadoConsultaLivro(ArrayList listaLivros, int posicao, Livro l) {
+        initComponents();
+        setLocationRelativeTo(null);
+        initialize();
+
+        resAux = listaLivros;
+        posicaoAtual = posicao;
+        livr = l;
+
+        exibicao(resAux, posicaoAtual);
     }
     
-    private void initialize(){
+    private void initialize() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
     
-    private ResultadoConsultaLivro(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private ResultadoConsultaLivro() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private void exibicao(Vector res, int posicao){
-        Livro liv = (Livro) res.elementAt(posicao);
+    private void exibicao(ArrayList res, int posicao) {
+        Livro liv = (Livro) res.get(posicao);
         
         posicaoAtual = posicao;
-        jLabel6.setText(liv.getTituloLivro());
-        jLabel7.setText(liv.getAutorLivro());
-        jLabel8.setText(liv.getGeneroLivro());
-        jLabel9.setText(liv.getNumLivro());
-        jLabel10.setText(liv.getEstanteLivro()); 
-        jLabel15.setText(liv.getEditoraLivro());
-        jLabel11.setText(new String ((posicao + 1) + "/" + res.size()));
+        tituloLivroLabel.setText(liv.getTituloLivro());
+        autorLivroLabel.setText(liv.getAutorLivro());
+        generoLivroLabel.setText(liv.getGeneroLivro());
+        numLivroLabel.setText(liv.getNumLivro());
+        estanteLivroLabel.setText(liv.getEstanteLivro()); 
+        editoraLivroLabel.setText(liv.getEditoraLivro());
+        contPagLabel.setText(((posicao + 1) + "/" + res.size()));
     
-        if(liv.getStatusLivro() == 1){
-            jLabel14.setText("Na estante");
+        if (liv.getStatusLivro() == 1) {
+            statusLivroLabel.setText("Na estante");
+        } else {
+           statusLivroLabel.setText("Emprestado"); 
         }
-        else{
-           jLabel14.setText("Emprestado"); 
-        }
-        if(liv.equals(res.firstElement())){
+        
+        if (liv.equals(res.get(0))) {
             btAnterior.setEnabled(false);
-        }
-        else{
+        } else {
             btAnterior.setEnabled(true);
         }
 
-        if(liv.equals(res.lastElement())){
+        if (liv.equals(res.get(res.size()-1))) {
             btProximo.setEnabled(false);
-        }
-        else{
+        } else {
             btProximo.setEnabled(true);
         }
     }
@@ -81,18 +81,18 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        tituloLivroLabel = new javax.swing.JLabel();
+        autorLivroLabel = new javax.swing.JLabel();
+        generoLivroLabel = new javax.swing.JLabel();
+        numLivroLabel = new javax.swing.JLabel();
+        estanteLivroLabel = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        statusLivroLabel = new javax.swing.JLabel();
+        editoraLivroLabel = new javax.swing.JLabel();
         btExcluir = new javax.swing.JButton();
         btProximo = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        contPagLabel = new javax.swing.JLabel();
         btAnterior = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -119,20 +119,20 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Estante: ");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel6.setText("jLabel6");
+        tituloLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tituloLivroLabel.setText("O menino do pijama listrado");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel7.setText("jLabel7");
+        autorLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        autorLivroLabel.setText("John Boyne");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel8.setText("jLabel8");
+        generoLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        generoLivroLabel.setText("Lit./FIcção");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel9.setText("jLabel9");
+        numLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        numLivroLabel.setText("60");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel10.setText("jLabel10");
+        estanteLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        estanteLivroLabel.setText("Lit./Ficção");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("Editora: ");
@@ -140,11 +140,11 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel13.setText("Status: ");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel14.setText("jLabel14");
+        statusLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        statusLivroLabel.setText("Na estante");
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel15.setText("jLabel15");
+        editoraLivroLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        editoraLivroLabel.setText("David Fickling Books");
 
         btExcluir.setBackground(new java.awt.Color(255, 255, 255));
         btExcluir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -167,35 +167,35 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))
+                        .addComponent(editoraLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(tituloLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(autorLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 100, Short.MAX_VALUE))
+                        .addComponent(generoLivroLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(numLivroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(estanteLivroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusLivroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -204,31 +204,31 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel6))
+                    .addComponent(tituloLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel7))
+                    .addComponent(autorLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel8))
+                    .addComponent(generoLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel9)
+                    .addComponent(numLivroLabel)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel10))
+                    .addComponent(estanteLivroLabel))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel15))
+                    .addComponent(editoraLivroLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel14)
+                    .addComponent(statusLivroLabel)
                     .addComponent(btExcluir))
-                .addGap(21, 21, 21))
+                .addGap(25, 25, 25))
         );
 
         btProximo.setBackground(new java.awt.Color(255, 255, 255));
@@ -242,8 +242,9 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jLabel11.setText("jLabel11");
+        contPagLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        contPagLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        contPagLabel.setText("1/100");
 
         btAnterior.setBackground(new java.awt.Color(255, 255, 255));
         btAnterior.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -263,25 +264,25 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(btAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11)
-                .addGap(167, 167, 167)
+                .addGap(18, 18, 18)
+                .addComponent(contPagLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btProximo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAnterior)
-                    .addComponent(jLabel11)
+                    .addComponent(contPagLabel)
                     .addComponent(btProximo))
                 .addGap(25, 25, 25))
         );
@@ -302,98 +303,67 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
 
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
         exibicao(resAux, posicaoAtual - 1);
-        return;
     }//GEN-LAST:event_btAnteriorActionPerformed
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
         exibicao(resAux, posicaoAtual + 1);
-        return;
     }//GEN-LAST:event_btProximoActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        Livro l = new Livro(null, null, null, null, null, null, 0);
         ConexaoBD conn = new ConexaoBD();
-        boolean i;
-
+        Livro l = new Livro(null, null, null, null, null, null, 0);
         Object[] options = { "Sim", "Cancelar" };
-        int opcao = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir o livro do acervo?", null, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        int opcao = JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir o livro do acervo?", null, JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         
         if(opcao == 0){
-            l.setNumLivro(jLabel9.getText());
+            l.setNumLivro(numLivroLabel.getText());
 
-            i = conn.excluiLivro(l);
-            if(i){
+            if (conn.excluiLivro(l)) {
                 JOptionPane.showMessageDialog(null, "Livro excluído do acervo com sucesso!");
+                
                 resAux = conn.consultaLivro(livr);
-                if(resAux.size() > 0){
+                
+                if (resAux.size() > 0) {
                     this.dispose();
                     ResultadoConsultaLivro t = new ResultadoConsultaLivro(resAux, posicaoAtual-1, livr);
                     t.setVisible(true);
-                }
-                else{
+                } else {
                     this.dispose();
                     JOptionPane.showMessageDialog(null, "Livro não encontrado!");
                 }     
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Falha ao excluir cadastro do aluno!");
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ResultadoConsultaLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ResultadoConsultaLivro(null).setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ResultadoConsultaLivro().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel autorLivroLabel;
     private javax.swing.JButton btAnterior;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btProximo;
+    private javax.swing.JLabel contPagLabel;
+    private javax.swing.JLabel editoraLivroLabel;
+    private javax.swing.JLabel estanteLivroLabel;
+    private javax.swing.JLabel generoLivroLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel numLivroLabel;
+    private javax.swing.JLabel statusLivroLabel;
+    private javax.swing.JLabel tituloLivroLabel;
     // End of variables declaration//GEN-END:variables
 }

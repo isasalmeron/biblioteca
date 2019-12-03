@@ -7,11 +7,10 @@
 
 package biblioteca.views;
 
-import biblioteca.ConexaoBD;
-import biblioteca.models.Livro;
-import biblioteca.views.Index;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import biblioteca.ConexaoBD;
+import biblioteca.models.Livro;
 
 public class CadastrarLivro extends javax.swing.JFrame {
 
@@ -20,7 +19,8 @@ public class CadastrarLivro extends javax.swing.JFrame {
         
         initComponents();
         setLocationRelativeTo(null);
-        jTextField4.setText(Integer.toString((conn.maiorNumeroLivro()+1)));
+        
+        numLivroField.setText(Integer.toString((conn.maiorNumeroLivro()+1)));
         initialize();
     }
     
@@ -40,20 +40,20 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tituloLivroField = new javax.swing.JTextField();
+        autorLivroField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        numLivroField = new javax.swing.JTextField();
+        estanteLivroComboBox = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        editoraLivroField = new javax.swing.JTextField();
+        generLivroComboBox = new javax.swing.JComboBox<>();
         btCadastrar = new javax.swing.JButton();
         btVoltar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
@@ -83,21 +83,13 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Estante: ");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField1.setToolTipText("Informe o título do livro");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        tituloLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tituloLivroField.setToolTipText("Informe o título do livro");
+        tituloLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField2.setToolTipText("Informe o(a) autor(a) do livro");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        autorLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        autorLivroField.setToolTipText("Informe o(a) autor(a) do livro");
+        autorLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 0, 0));
@@ -124,22 +116,13 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jLabel10.setText("(*)");
         jLabel10.setToolTipText("Campo obrigatório");
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField4.setToolTipText("Informe o número do livro");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
+        numLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        numLivroField.setToolTipText("Informe o número do livro");
+        numLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Arte", "Assistência Social", "Ciências Aplicadas", "Ciências Naturais", "Ciências Sociais", "Direito", "Economia", "Educação", "Filosofia", "Geografia", "História", "Linguagem/Linguística", "Lit./Autoajuda", "Lit./Biografia", "Lit./Carta", "Lit./Conto", "Lit./Crônica", "Lit./Diário", "Lit./Ensaio", "Lit./Fábula", "Lit./Ficção", "Lit./História em quadrinhos", "Lit./Memória", "Lit./Narrativa", "Lit./Novela", "Lit./Poema", "Lit./Romance", "Lit./Roteiro", "Lit./Teatro", "Matemática", "Medicina", "Política", "Psicologia", "Religião", "Tecnologia", "Teologia" }));
-        jComboBox1.setToolTipText("Informe a estante do livro");
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        estanteLivroComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        estanteLivroComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Arte", "Assistência Social", "Ciências Aplicadas", "Ciências Naturais", "Ciências Sociais", "Direito", "Economia", "Educação", "Filosofia", "Geografia", "História", "Linguagem/Linguística", "Lit./Autoajuda", "Lit./Biografia", "Lit./Carta", "Lit./Conto", "Lit./Crônica", "Lit./Diário", "Lit./Ensaio", "Lit./Fábula", "Lit./Ficção", "Lit./História em quadrinhos", "Lit./Memória", "Lit./Narrativa", "Lit./Novela", "Lit./Poema", "Lit./Romance", "Lit./Roteiro", "Lit./Teatro", "Matemática", "Medicina", "Política", "Psicologia", "Religião", "Tecnologia", "Teologia" }));
+        estanteLivroComboBox.setToolTipText("Informe a estante do livro");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Para cadastrar um novo livro no acervo, preencha os campos abaixo:");
@@ -152,12 +135,13 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jLabel13.setText("(*)");
         jLabel13.setToolTipText("Campo obrigatório");
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField5.setToolTipText("Informe a editora do livro");
+        editoraLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        editoraLivroField.setToolTipText("Informe a editora do livro");
+        editoraLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jComboBox2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Arte", "Assistência Social", "Ciências Aplicadas", "Ciências Naturais", "Ciências Sociais", "Direito", "Economia", "Educação", "Filosofia", "Geografia", "História", "Linguagem/Linguística", "Lit./Autoajuda", "Lit./Biografia", "Lit./Carta", "Lit./Conto", "Lit./Crônica", "Lit./Diário", "Lit./Ensaio", "Lit./Fábula", "Lit./Ficção", "Lit./História em quadrinhos", "Lit./Memória", "Lit./Narrativa", "Lit./Novela", "Lit./Poema", "Lit./Romance", "Lit./Roteiro", "Lit./Teatro", "Matemática", "Medicina", "Política", "Psicologia", "Religião", "Tecnologia", "Teologia" }));
-        jComboBox2.setToolTipText("Informe o gênero do livro");
+        generLivroComboBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        generLivroComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Arte", "Assistência Social", "Ciências Aplicadas", "Ciências Naturais", "Ciências Sociais", "Direito", "Economia", "Educação", "Filosofia", "Geografia", "História", "Linguagem/Linguística", "Lit./Autoajuda", "Lit./Biografia", "Lit./Carta", "Lit./Conto", "Lit./Crônica", "Lit./Diário", "Lit./Ensaio", "Lit./Fábula", "Lit./Ficção", "Lit./História em quadrinhos", "Lit./Memória", "Lit./Narrativa", "Lit./Novela", "Lit./Poema", "Lit./Romance", "Lit./Roteiro", "Lit./Teatro", "Matemática", "Medicina", "Política", "Psicologia", "Religião", "Tecnologia", "Teologia" }));
+        generLivroComboBox.setToolTipText("Informe o gênero do livro");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -174,7 +158,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tituloLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -183,31 +167,31 @@ public class CadastrarLivro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(generLivroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addGap(3, 3, 3)
+                                .addComponent(numLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(estanteLivroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextField5)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)))
-                        .addGap(3, 3, 3)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(editoraLivroField, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(autorLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -217,33 +201,33 @@ public class CadastrarLivro extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tituloLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel1))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(autorLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generLivroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel9))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(estanteLivroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel5))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(editoraLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         btCadastrar.setBackground(new java.awt.Color(255, 255, 255));
@@ -288,7 +272,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
+                .addGap(93, 93, 93)
                 .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -299,7 +283,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -344,38 +328,33 @@ public class CadastrarLivro extends javax.swing.JFrame {
         
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         ConexaoBD conn = new ConexaoBD();
-        boolean i, j;
         Livro l = new Livro(null, null, null, null, null, null, 1);
         
-        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jComboBox2.getSelectedItem().equals("") || jTextField4.getText().equals("") || jComboBox1.getSelectedItem().equals("") || jTextField5.getText().equals("")){
+        if (tituloLivroField.getText().equals("") || autorLivroField.getText().equals("") || generLivroComboBox.getSelectedItem().equals("") ||
+                numLivroField.getText().equals("") || estanteLivroComboBox.getSelectedItem().equals("") || editoraLivroField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Falha ao cadastrar livro! Campo(s) obrigatório(s) em branco.");
-        }
-        else{
-            l.setTituloLivro(jTextField1.getText());
-            l.setAutorLivro(jTextField2.getText());
-            l.setGeneroLivro(jComboBox2.getSelectedItem().toString());
-            l.setNumLivro(jTextField4.getText());
-            l.setEstanteLivro(jComboBox1.getSelectedItem().toString());
-            l.setEditoraLivro(jTextField5.getText());
+        } else {
+            l.setTituloLivro(tituloLivroField.getText());
+            l.setAutorLivro(autorLivroField.getText());
+            l.setGeneroLivro(generLivroComboBox.getSelectedItem().toString());
+            l.setNumLivro(numLivroField.getText());
+            l.setEstanteLivro(estanteLivroComboBox.getSelectedItem().toString());
+            l.setEditoraLivro(editoraLivroField.getText());
             
-            i = conn.buscaLivro(jTextField4.getText());
-            
-            if(!i){ 
-                j = conn.insereLivro(l);
-                if(j){
+            if (!conn.buscaLivro(numLivroField.getText())) {                
+                if (conn.insereLivro(l)) {
                     JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
-                    jTextField1.setText(null);
-                    jTextField2.setText(null);
-                    jComboBox2.setSelectedItem(null);
-                    jTextField4.setText(Integer.toString((conn.maiorNumeroLivro()+1)));
-                    jTextField5.setText(null);
-                    jComboBox1.setSelectedItem(null);
-                }
-                else{
+                    
+                    tituloLivroField.setText(null);
+                    autorLivroField.setText(null);
+                    generLivroComboBox.setSelectedItem(null);
+                    numLivroField.setText(Integer.toString((conn.maiorNumeroLivro()+1)));
+                    editoraLivroField.setText(null);
+                    estanteLivroComboBox.setSelectedItem(null);
+                } else {
                     JOptionPane.showMessageDialog(null, "Falha ao cadastrar livro!");
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro! Livro já cadastrado.");
             }
         }         
@@ -385,63 +364,20 @@ public class CadastrarLivro extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btSairActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarLivro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarLivro().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastrarLivro().setVisible(true);
         });
     }  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField autorLivroField;
     private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JTextField editoraLivroField;
+    private javax.swing.JComboBox<String> estanteLivroComboBox;
+    private javax.swing.JComboBox<String> generLivroComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -458,9 +394,7 @@ public class CadastrarLivro extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField numLivroField;
+    private javax.swing.JTextField tituloLivroField;
     // End of variables declaration//GEN-END:variables
 }

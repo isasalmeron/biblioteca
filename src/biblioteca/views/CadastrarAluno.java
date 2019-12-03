@@ -9,7 +9,6 @@ package biblioteca.views;
 
 import biblioteca.models.Aluno;
 import biblioteca.ConexaoBD;
-import biblioteca.views.Index;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
@@ -21,7 +20,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
         initialize();
     }
     
-    private void initialize(){
+    private void initialize() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
 
@@ -38,11 +37,11 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        nomeAlunoField = new javax.swing.JTextField();
+        raAlunoField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        serieAlunoField = new javax.swing.JTextField();
         btVoltar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         btCadastrar = new javax.swing.JButton();
@@ -83,11 +82,13 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jLabel8.setText("(*)");
         jLabel8.setToolTipText("Campo obrigatório");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField1.setToolTipText("Informe o nome do aluno");
+        nomeAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        nomeAlunoField.setToolTipText("Informe o nome do aluno");
+        nomeAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField2.setToolTipText("Informe o RA do aluno");
+        raAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        raAlunoField.setToolTipText("Informe o RA do aluno");
+        raAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Para cadastrar um novo aluno, preencha os campos abaixo");
@@ -95,8 +96,9 @@ public class CadastrarAluno extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("(digitar o RA sem o hífen):");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField3.setToolTipText("Informe o RA do aluno");
+        serieAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        serieAlunoField.setToolTipText("Informe o RA do aluno");
+        serieAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -110,14 +112,14 @@ public class CadastrarAluno extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(serieAlunoField))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -125,13 +127,15 @@ public class CadastrarAluno extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(nomeAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel9))
+                                .addComponent(jLabel9)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,19 +144,19 @@ public class CadastrarAluno extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nomeAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(serieAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -196,13 +200,13 @@ public class CadastrarAluno extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
                 .addComponent(btCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -216,7 +220,7 @@ public class CadastrarAluno extends javax.swing.JFrame {
                     .addComponent(btVoltar)
                     .addComponent(btSair)
                     .addComponent(btCadastrar))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,68 +250,35 @@ public class CadastrarAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_btSairActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        ConexaoBD conn = new ConexaoBD();
-        boolean i, j;
         Aluno a = new Aluno(null, null, null);
-        Aluno aAux;
+        ConexaoBD conn = new ConexaoBD();
         
-        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jTextField3.getText().equals("")){
+        if (nomeAlunoField.getText().equals("") || raAlunoField.getText().equals("") || serieAlunoField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Falha ao cadastrar aluno! Campo(s) obrigatório(s) em branco.");
-        }
-        else{
-            a.setNomeAluno(jTextField1.getText());
-            a.setRaAluno(jTextField2.getText());
-            a.setSerieAluno(jTextField3.getText());
+        } else {
+            a.setNomeAluno(nomeAlunoField.getText());
+            a.setRaAluno(raAlunoField.getText());
+            a.setSerieAluno(serieAlunoField.getText());
             
-            i = conn.buscaAluno(a.getRaAluno(), a.getNomeAluno());
-            
-            if(!i){ 
-                j = conn.insereAluno(a);
-                if(j){
+            if (!conn.buscaAluno(a.getRaAluno(), a.getNomeAluno())) {             
+                if (conn.insereAluno(a)) {
                     JOptionPane.showMessageDialog(null, "Aluno cadastrado com sucesso!");
-                    jTextField1.setText(null);
-                    jTextField2.setText(null);
-                    jTextField3.setText(null);
-                }
-                else{
+                    
+                    nomeAlunoField.setText(null);
+                    raAlunoField.setText(null);
+                    serieAlunoField.setText(null);
+                } else {
                     JOptionPane.showMessageDialog(null, "Falha ao cadastrar aluno!");
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Erro! Aluno já cadastrado.");
             }
         }         
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarAluno().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new CadastrarAluno().setVisible(true);
         });
     }
 
@@ -326,8 +297,8 @@ public class CadastrarAluno extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nomeAlunoField;
+    private javax.swing.JTextField raAlunoField;
+    private javax.swing.JTextField serieAlunoField;
     // End of variables declaration//GEN-END:variables
 }

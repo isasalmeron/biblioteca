@@ -12,6 +12,7 @@ import biblioteca.models.Emprestimo;
 import biblioteca.models.EmprestimosPorSerie;
 import biblioteca.models.Livro;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class ConexaoBD {
@@ -79,10 +80,10 @@ public class ConexaoBD {
        return false;
     }
 
-    public Vector consultaLivro(Livro l){
+    public ArrayList consultaLivro(Livro l){
         String sql;
         ResultSet rs = null;
-        Vector res = new Vector();
+        ArrayList res = new ArrayList();
         Livro lAux;
             
         try{
@@ -133,7 +134,7 @@ public class ConexaoBD {
             while(rs.next()){                
                 lAux = new Livro(rs.getString(2),rs.getString(3),rs.getString(1),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
 
-                res.addElement(lAux);
+                res.add(lAux);
             }
         }
         catch(SQLException e){
@@ -248,10 +249,10 @@ public class ConexaoBD {
         return true;
     }
     
-    public Vector consultaAluno(Aluno a){
+    public ArrayList consultaAluno(Aluno a){
         String sql;
         ResultSet rs = null;
-        Vector res = new Vector();
+        ArrayList res = new ArrayList();
         Aluno aAux;
             
         try{
@@ -278,7 +279,7 @@ public class ConexaoBD {
             while(rs.next()){                
                 aAux = new Aluno(rs.getString(1),rs.getString(2),rs.getString(3));
 
-                res.addElement(aAux);
+                res.add(aAux);
             }
         }
         catch(SQLException e){
@@ -429,11 +430,11 @@ public class ConexaoBD {
         return true;
     }
 
-    public Vector consultaEmprestimo(Emprestimo emp){
+    public ArrayList consultaEmprestimo(Emprestimo emp){
         int flag = 0;
         String sql;
         ResultSet rs = null;
-        Vector res = new Vector();
+        ArrayList res = new ArrayList();
         Emprestimo empAux;
 
         try{
@@ -485,7 +486,7 @@ public class ConexaoBD {
             while(rs.next()){                
                 empAux = new Emprestimo(rs.getString(3),rs.getString(5),rs.getString(2),rs.getString(1), rs.getString(4));
 
-                res.addElement(empAux);
+                res.add(empAux);
             }
         }
         catch(SQLException e){
@@ -518,9 +519,9 @@ public class ConexaoBD {
         return true;
     }
     
-    public Vector livrosEmprestados(){
+    public ArrayList livrosEmprestados(){
         ResultSet rs = null;
-        Vector res = new Vector();
+        ArrayList res = new ArrayList();
         Emprestimo empAux;
 
         try{
@@ -530,7 +531,7 @@ public class ConexaoBD {
             while(rs.next()){                
                 empAux = new Emprestimo(rs.getString(3),rs.getString(5),rs.getString(2),rs.getString(1), rs.getString(4));
 
-                res.addElement(empAux);
+                res.add(empAux);
             }
         }
         catch(SQLException e){
@@ -540,11 +541,11 @@ public class ConexaoBD {
         return res;
     }
     
-    public Vector relatorio(String dataIni, String dataFim, String genero){
+    public ArrayList relatorio(String dataIni, String dataFim, String genero){
         ConexaoBD conn = new ConexaoBD();
         String sql, serie;
         ResultSet rs = null;
-        Vector res = new Vector();
+        ArrayList res = new ArrayList();
         EmprestimosPorSerie empAux;
 
         try{
@@ -572,7 +573,7 @@ public class ConexaoBD {
             
             while(rs.next()){  
                 empAux = new EmprestimosPorSerie(rs.getString(1), rs.getInt(2));
-                res.addElement(empAux);
+                res.add(empAux);
             }
         }
         catch(SQLException e){

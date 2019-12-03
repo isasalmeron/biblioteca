@@ -7,15 +7,16 @@
 
 package biblioteca.views;
 
-import biblioteca.ConexaoBD;
-import biblioteca.models.Emprestimo;
-import biblioteca.views.Index;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import biblioteca.ConexaoBD;
+import biblioteca.models.Emprestimo;
 
 public class Emprestar extends javax.swing.JFrame {
 
@@ -25,7 +26,7 @@ public class Emprestar extends javax.swing.JFrame {
         initialize();
     }
     
-    private void initialize(){
+    private void initialize() {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../livros.png")));
     }
     
@@ -43,11 +44,12 @@ public class Emprestar extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        numLivroField = new javax.swing.JTextField();
+        raAlunoField = new javax.swing.JTextField();
+        dtEmprestimoFormattedField = new javax.swing.JFormattedTextField();
+        dtDevolucaoFormattedField = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         btVoltar = new javax.swing.JButton();
         btSair = new javax.swing.JButton();
         btConfirmar = new javax.swing.JButton();
@@ -94,66 +96,72 @@ public class Emprestar extends javax.swing.JFrame {
         jLabel8.setText("(*)");
         jLabel8.setToolTipText("Campo obrigatório");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField1.setToolTipText("Informe o número do livro");
+        numLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        numLivroField.setToolTipText("Informe o número do livro");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jTextField2.setToolTipText("Informe o RA do aluno");
+        raAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        raAlunoField.setToolTipText("Informe o RA do aluno");
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            dtEmprestimoFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setToolTipText("Informe a data de empréstimo do livro");
-        jFormattedTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtEmprestimoFormattedField.setToolTipText("Informe a data de empréstimo do livro");
+        dtEmprestimoFormattedField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            dtDevolucaoFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField2.setToolTipText("Informe a data de devolução do livro");
-        jFormattedTextField2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        dtDevolucaoFormattedField.setToolTipText("Informe a data prevista de devolução do livro");
+        dtDevolucaoFormattedField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText("Para realizar um empréstimo, preencha todos os campos abaixo:");
+        jLabel9.setText("Para realizar um empréstimo, preencha todos os campos");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("abaixo:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField2))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextField1)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(numLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dtEmprestimoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(raAlunoField))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(dtDevolucaoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel10)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -161,27 +169,29 @@ public class Emprestar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel9)
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(numLivroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(raAlunoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtEmprestimoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8)
-                    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                    .addComponent(dtDevolucaoFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
 
         btVoltar.setBackground(new java.awt.Color(255, 255, 255));
@@ -222,17 +232,18 @@ public class Emprestar extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,89 +287,58 @@ public class Emprestar extends javax.swing.JFrame {
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         ConexaoBD conn = new ConexaoBD();
         ConexaoBD conn2 = new ConexaoBD();
-        boolean i, j;
         Emprestimo emp = new Emprestimo(null, null, null, null, null);
         
-        if(jTextField1.getText().equals("") || jTextField2.getText().equals("") || jFormattedTextField1.getText().equals("  /  /    ") || jFormattedTextField2.getText().equals("  /  /    ")){
+        if (numLivroField.getText().equals("") || raAlunoField.getText().equals("") || dtEmprestimoFormattedField.getText().equals("  /  /    ") ||
+                dtDevolucaoFormattedField.getText().equals("  /  /    ")) {
             JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo! Campo(s) obrigatório(s) em branco.");
-        }
-        else if(!conn.buscaLivro(jTextField1.getText())){
+        } else if (!conn.buscaLivro(numLivroField.getText())) {
             JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo! Livro não cadastrado.");
-        }
-        else if(conn.consultaStatus(jTextField1.getText()) == 0){
-           JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo! Livro já emprestado.");
-        }
-        else if(!conn.buscaAluno(jTextField2.getText(), conn2.retornaNomeAluno(jTextField2.getText()))){
+        } else if (conn.consultaStatus(numLivroField.getText()) == 0) {
+            JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo! Livro já emprestado.");
+        } else if (!conn.buscaAluno(raAlunoField.getText(), conn2.retornaNomeAluno(raAlunoField.getText()))) {
             JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo! Aluno não cadastrado");
-        }       
-        else{
-            try{        
-                DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Calendar dtEmp = Calendar.getInstance();
+        } else {
+            try {
                 Calendar dtDev = Calendar.getInstance();
-
-                dtEmp.setTime(sdf.parse(jFormattedTextField1.getText())); 
-                dtDev.setTime(sdf.parse(jFormattedTextField2.getText()));
-                if(dtDev.before(dtEmp)){
+                Calendar dtEmp = Calendar.getInstance();
+                DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                
+                dtEmp.setTime(sdf.parse(dtEmprestimoFormattedField.getText())); 
+                dtDev.setTime(sdf.parse(dtDevolucaoFormattedField.getText()));
+                
+                if (dtDev.before(dtEmp)) {
                     JOptionPane.showMessageDialog(null, "Erro! Data de devolução inválida.");
+                    
                     return;
                 }            
-            }catch(ParseException e){ 
-
+            } catch (ParseException ex) {
+                Logger.getLogger(AlterarData.class.getName()).log(Level.SEVERE, null, ex);
             }
                                 
-            emp.setDataEmprestimo(jFormattedTextField1.getText());
-            emp.setDataPrevista(jFormattedTextField2.getText());
-            emp.setRaAluno(jTextField2.getText());
-            emp.setNumeroLivro(jTextField1.getText());
+            emp.setDataEmprestimo(dtEmprestimoFormattedField.getText());
+            emp.setDataPrevista(dtDevolucaoFormattedField.getText());
+            emp.setRaAluno(raAlunoField.getText());
+            emp.setNumeroLivro(numLivroField.getText());
             
-            i = conn.alteraStatus(jTextField1.getText(), 0);
-            if(i){
-                j = conn.realizaEmprestimo(emp);
-                if(j){
+            if (conn.alteraStatus(numLivroField.getText(), 0)) {                
+                if (conn.realizaEmprestimo(emp)) {
                     JOptionPane.showMessageDialog(null, "Empréstimo realizado com sucesso!");
-                    jTextField1.setText(null);
-                    jTextField2.setText(null);
-                    jFormattedTextField1.setText(null);
-                    jFormattedTextField2.setText(null);
+                    
+                    numLivroField.setText(null);
+                    raAlunoField.setText(null);
+                    dtEmprestimoFormattedField.setText(null);
+                    dtDevolucaoFormattedField.setText(null);
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Falha ao realizar empréstimo!");
             }
         }
     }//GEN-LAST:event_btConfirmarActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Emprestar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Emprestar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Emprestar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Emprestar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Emprestar().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Emprestar().setVisible(true);
         });
     }
 
@@ -366,9 +346,10 @@ public class Emprestar extends javax.swing.JFrame {
     private javax.swing.JButton btConfirmar;
     private javax.swing.JButton btSair;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
+    private javax.swing.JFormattedTextField dtDevolucaoFormattedField;
+    private javax.swing.JFormattedTextField dtEmprestimoFormattedField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -379,7 +360,7 @@ public class Emprestar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField numLivroField;
+    private javax.swing.JTextField raAlunoField;
     // End of variables declaration//GEN-END:variables
 }
