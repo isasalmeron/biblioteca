@@ -8,8 +8,11 @@
 package biblioteca.views;
 
 import java.awt.Toolkit;
-import java.util.ArrayList;
+import java.awt.EventQueue;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import biblioteca.ConexaoBD;
 import biblioteca.models.Aluno;
 
@@ -230,10 +233,10 @@ public class AlterarAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        java.awt.EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
             new AlterarAluno().setVisible(true);
         });
     }

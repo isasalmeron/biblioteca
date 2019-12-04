@@ -335,7 +335,7 @@ public class Index extends javax.swing.JFrame {
                 t = new ResultadoEmprestados(listaEmprestimos);
                 t.setVisible(true);
             } catch (ParseException ex) {
-                Logger.getLogger(ResultadoEmprestados.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btEmprestadosActionPerformed

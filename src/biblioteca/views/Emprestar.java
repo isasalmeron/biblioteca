@@ -313,7 +313,7 @@ public class Emprestar extends javax.swing.JFrame {
                     return;
                 }            
             } catch (ParseException ex) {
-                Logger.getLogger(AlterarData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Emprestar.class.getName()).log(Level.SEVERE, null, ex);
             }
                                 
             emp.setDataEmprestimo(dtEmprestimoFormattedField.getText());

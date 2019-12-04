@@ -7,412 +7,381 @@
 
 package biblioteca;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import biblioteca.models.Aluno;
 import biblioteca.models.Emprestimo;
 import biblioteca.models.EmprestimosPorSerie;
 import biblioteca.models.Livro;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Vector;
 
 public class ConexaoBD {
+    
     private Connection myConnection;
     private Statement st;
     public static String nome;
     public static int codigo;
 
-    public ConexaoBD(){
+    public ConexaoBD() {
         try{
             Class.forName("org.postgresql.Driver").newInstance();
             myConnection = DriverManager.getConnection("jdbc:postgresql:" +"//localhost/biblioteca?user=postgres&password=1234");
             st = myConnection.createStatement();
-        }
-        catch (Exception e){
-            e.printStackTrace();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public boolean insereLivro(Livro l){
-        String textoInsereLivro;
-        
-        try{
-            textoInsereLivro  = "INSERT INTO livros VALUES (";
-            textoInsereLivro += l.getNumLivro();
-            textoInsereLivro += ", '";
-            textoInsereLivro += l.getTituloLivro();
-            textoInsereLivro += "', '";            
-            textoInsereLivro += l.getAutorLivro();
-            textoInsereLivro += "', '";
-            textoInsereLivro += l.getGeneroLivro();
-            textoInsereLivro += "', '";
-            textoInsereLivro += l.getEstanteLivro();
-            textoInsereLivro += "', '";
-            textoInsereLivro += l.getEditoraLivro();
-            textoInsereLivro += "', ";
-            textoInsereLivro += l.getStatusLivro();
-            textoInsereLivro += ")";
+    public boolean insereLivro(Livro livro) {
+        try {
+            String sql  = "INSERT INTO livros VALUES (";
+            sql += livro.getNumLivro();
+            sql += ", '";
+            sql += livro.getTituloLivro();
+            sql += "', '";            
+            sql += livro.getAutorLivro();
+            sql += "', '";
+            sql += livro.getGeneroLivro();
+            sql += "', '";
+            sql += livro.getEstanteLivro();
+            sql += "', '";
+            sql += livro.getEditoraLivro();
+            sql += "', ";
+            sql += livro.getStatusLivro();
+            sql += ")";
 
-            st.execute(textoInsereLivro);
-        }
-
-        catch(SQLException e){
-            e.printStackTrace();
+            st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public boolean buscaLivro(String numL){
-       ResultSet rs = null;
-       
-        try{
-            st.execute("SELECT numero_livro FROM livros WHERE numero_livro = "+numL);           
-            rs = st.getResultSet();
+    public boolean buscaLivro(String numLivro) {
+        try {
+            st.execute("SELECT numero_livro FROM livros WHERE numero_livro = " + numLivro);           
+            ResultSet rs = st.getResultSet();
 
-            if(rs.next()){
+            if (rs.next()) {
                 return true; 
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
        
        return false;
     }
 
-    public ArrayList consultaLivro(Livro l){
-        String sql;
-        ResultSet rs = null;
+    public ArrayList consultaLivro(Livro livro) {
         ArrayList res = new ArrayList();
-        Livro lAux;
+        Livro livroAux;
             
-        try{
-            sql = "SELECT * FROM livros WHERE titulo_livro LIKE '%"; 
-            if(!l.getTituloLivro().equals("")){
-                sql += l.getTituloLivro();
+        try {
+            String sql = "SELECT * FROM livros WHERE titulo_livro LIKE '%"; 
+            if (!livro.getTituloLivro().equals("")) {
+                sql += livro.getTituloLivro();
                 sql += "%";
             }
             
             sql += "' AND autor_livro LIKE '%";
-            if(!l.getAutorLivro().equals("")){
-                sql += l.getAutorLivro();
+            if (!livro.getAutorLivro().equals("")) {
+                sql += livro.getAutorLivro();
                 sql += "%";
             }
             
             sql += "' AND genero_livro LIKE '%"; 
-            if(!l.getGeneroLivro().equals("")){
-                sql += l.getGeneroLivro();
+            if (!livro.getGeneroLivro().equals("")) {
+                sql += livro.getGeneroLivro();
                 sql += "%";
             }
             
             sql += "' AND estante_livro ";
-            if(l.getEstanteLivro().equals("")){
+            if (livro.getEstanteLivro().equals("")) {
                 sql += "LIKE '%";
-            }
-            else{
+            } else {
                 sql += "= '";
-                sql += l.getEstanteLivro();
+                sql += livro.getEstanteLivro();
             }
             
             sql += "' AND editora_livro LIKE '%";
-            if(!l.getEditoraLivro().equals("")){
-                sql += l.getEditoraLivro();
+            if (!livro.getEditoraLivro().equals("")) {
+                sql += livro.getEditoraLivro();
                 sql += "%";
             }
             
             sql += "'";
-            if(!l.getNumLivro().equals("")){
+            if (!livro.getNumLivro().equals("")) {
                 sql += " AND numero_livro = ";
-                sql += l.getNumLivro();
+                sql += livro.getNumLivro();
             }
             
             sql += " ORDER BY titulo_livro";
 
             st.execute(sql);
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
 
-            while(rs.next()){                
-                lAux = new Livro(rs.getString(2),rs.getString(3),rs.getString(1),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+            while (rs.next()) {                
+                livroAux = new Livro(rs.getString(2),rs.getString(3),rs.getString(1),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
 
-                res.add(lAux);
+                res.add(livroAux);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch(SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         return res;
     }
     
-    public boolean excluiLivro(Livro l){
-        String textoExcluiLivro;
-        
-        try{
-            textoExcluiLivro  = "DELETE FROM livros WHERE numero_livro = '";
-            textoExcluiLivro += l.getNumLivro();
-            textoExcluiLivro += "'";
-            st.execute(textoExcluiLivro);            
-        }
-
-        catch(SQLException e){
-            e.printStackTrace();
+    public boolean excluiLivro(Livro l) {
+        try {
+            String sql  = "DELETE FROM livros WHERE numero_livro = '";
+            sql += l.getNumLivro();
+            sql += "'";
+            
+            st.execute(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public String retornaNomeLivro(String numLivro){
-        String aux = null;
-        ResultSet rs = null;
-        
+    public String retornaNomeLivro(String numLivro) {
+        String nomeLivro = null;
+
         try{
-            st.execute("SELECT titulo_livro FROM livros WHERE numero_livro = "+numLivro);
-            rs = st.getResultSet();
+            st.execute("SELECT titulo_livro FROM livros WHERE numero_livro = " + numLivro);
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getString(1);
+            while (rs.next()) {
+                nomeLivro = rs.getString(1);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch(SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return nomeLivro;
     }
     
-    public int maiorNumeroLivro(){
-        int aux = 0;
-        ResultSet rs = null;
-        
+    public int maiorNumeroLivro() {
+        int maiorNumero = 0;
+
         try{
             st.execute("SELECT MAX(numero_livro) FROM livros");
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getInt(1);
+            while (rs.next()) {
+                maiorNumero = rs.getInt(1);
             }
-        }
-         catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return maiorNumero;
     }
     
-    public String retornaGeneroLivro(String numLivro){
-        String aux = null;
-        ResultSet rs = null;
+    public String retornaGeneroLivro(String numLivro) {
+        String genero = null;
         
-        try{
-            st.execute("SELECT genero_livro FROM livros WHERE numero_livro = "+numLivro);
-            rs = st.getResultSet();
+        try {
+            st.execute("SELECT genero_livro FROM livros WHERE numero_livro = " + numLivro);
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getString(1);
+            while (rs.next()) {
+                genero = rs.getString(1);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch(SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return genero;
     }
     
-    public int consultaStatus(String numLivro){
-        int aux = -1;
-        ResultSet rs = null;
+    public int consultaStatus(String numLivro) {
+        int status = -1;
         
-        try{
-            st.execute("SELECT status FROM livros WHERE numero_livro = "+numLivro);
-            rs = st.getResultSet();
+        try {
+            st.execute("SELECT status FROM livros WHERE numero_livro = " + numLivro);
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getInt(1);
+            while (rs.next()) {
+                status = rs.getInt(1);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return status;
     } 
     
-    public boolean alteraStatus(String numL, int num){
-        
-        try{
-            st.execute("UPDATE livros SET status = "+num+" WHERE numero_livro = "+numL);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+    public boolean alteraStatus(String numLivro, int status) {       
+        try {
+            st.execute("UPDATE livros SET status = " + status + " WHERE numero_livro = " + numLivro);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public ArrayList consultaAluno(Aluno a){
-        String sql;
-        ResultSet rs = null;
+    public ArrayList consultaAluno(Aluno aluno) {
+        Aluno alunoAux;
         ArrayList res = new ArrayList();
-        Aluno aAux;
+           
+        try {
+            String sql = "SELECT * FROM alunos WHERE nome_aluno LIKE '%"; 
             
-        try{
-            sql = "SELECT * FROM alunos WHERE nome_aluno LIKE '%"; 
-            if(!a.getNomeAluno().equals("")){
-                sql += a.getNomeAluno();
+            if (!aluno.getNomeAluno().equals("")) {
+                sql += aluno.getNomeAluno();
                 sql += "%";
             }
             
-            if(!a.getRaAluno().equals("")){
+            if (!aluno.getRaAluno().equals("")) {
                 sql += "' AND ra_aluno = '";
-                sql += a.getRaAluno();
+                sql += aluno.getRaAluno();
             }
             
-            if(!a.getSerieAluno().equals("")){
+            if (!aluno.getSerieAluno().equals("")) {
                 sql += "' AND serie_aluno = '";
-                sql += a.getSerieAluno();
+                sql += aluno.getSerieAluno();
             }
             
             sql += "' ORDER BY serie_aluno, nome_aluno";
+            
             st.execute(sql);
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
 
-            while(rs.next()){                
-                aAux = new Aluno(rs.getString(1),rs.getString(2),rs.getString(3));
+            while (rs.next()) {                
+                alunoAux = new Aluno(rs.getString(1),rs.getString(2),rs.getString(3));
 
-                res.add(aAux);
+                res.add(alunoAux);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex){
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         return res;
     }
 
-    public boolean alteraAluno(Aluno a){
-        String textoAlteraAluno;
-        
-        try{
-            textoAlteraAluno  = "UPDATE alunos SET serie_aluno = '";
-            textoAlteraAluno += a.getSerieAluno();
-            textoAlteraAluno += "', nome_aluno = '";
-            textoAlteraAluno += a.getNomeAluno();
-            textoAlteraAluno += "' WHERE ra_aluno = '";
-            textoAlteraAluno += a.getRaAluno();
-            textoAlteraAluno += "'";
-            st.execute(textoAlteraAluno);            
-        }
-
-        catch(SQLException e){
-            e.printStackTrace();
+    public boolean alteraAluno(Aluno aluno) {
+        try {
+            String sql  = "UPDATE alunos SET serie_aluno = '";
+            sql += aluno.getSerieAluno();
+            sql += "', nome_aluno = '";
+            sql += aluno.getNomeAluno();
+            sql += "' WHERE ra_aluno = '";
+            sql += aluno.getRaAluno();
+            sql += "'";
+            
+            st.execute(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public boolean insereAluno(Aluno a){
-        String textoInsereAluno;
-        
-        try{
-            textoInsereAluno  = "INSERT INTO alunos VALUES ('";
-            textoInsereAluno += a.getNomeAluno();
-            textoInsereAluno += "', '";
-            textoInsereAluno += a.getRaAluno();
-            textoInsereAluno += "', '";
-            textoInsereAluno += a.getSerieAluno();
-            textoInsereAluno += "')";
-            st.execute(textoInsereAluno);
-        }
-
-        catch(SQLException e){
-            e.printStackTrace();
+    public boolean insereAluno(Aluno aluno) {      
+        try {
+            String sql  = "INSERT INTO alunos VALUES ('";
+            sql += aluno.getNomeAluno();
+            sql += "', '";
+            sql += aluno.getRaAluno();
+            sql += "', '";
+            sql += aluno.getSerieAluno();
+            sql += "')";
+            
+            st.execute(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
         return true;
     }
 
-    public boolean buscaAluno(String raA, String nomeA){
-        ResultSet rs = null;
+    public boolean buscaAluno(String raAluno, String nomeAluno) {
+        try {
+            st.execute("SELECT ra_aluno FROM alunos WHERE ra_aluno = '" + raAluno + "' OR nome_aluno = '" + nomeAluno + "'");           
+            ResultSet rs = st.getResultSet();
 
-        try{
-            st.execute("SELECT ra_aluno FROM alunos WHERE ra_aluno = '"+raA+"' OR nome_aluno = '"+nomeA+"'");           
-            rs = st.getResultSet();
-
-            if(rs.next()){
+            if (rs.next()) {
                 return true; 
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
     }
     
-    public boolean excluiAluno(Aluno a){
-        String textoExcluiAluno;
-        
-        try{
-            textoExcluiAluno  = "DELETE FROM alunos WHERE nome_aluno = '";
-            textoExcluiAluno += a.getNomeAluno();
-            textoExcluiAluno += "' AND ra_aluno = '";
-            textoExcluiAluno += a.getRaAluno();
-            textoExcluiAluno += "' AND serie_aluno = '";
-            textoExcluiAluno += a.getSerieAluno();
-            textoExcluiAluno += "'";
-            st.execute(textoExcluiAluno);            
-        }
-
-        catch(SQLException e){
-            e.printStackTrace();
+    public boolean excluiAluno(Aluno aluno) {
+        try {
+            String sql  = "DELETE FROM alunos WHERE nome_aluno = '";
+            sql += aluno.getNomeAluno();
+            sql += "' AND ra_aluno = '";
+            sql += aluno.getRaAluno();
+            sql += "' AND serie_aluno = '";
+            sql += aluno.getSerieAluno();
+            sql += "'";
+            
+            st.execute(sql);            
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public String retornaNomeAluno(String raAluno){
-        String aux = null;
-        ResultSet rs = null;
+    public String retornaNomeAluno(String raAluno) {
+        String nomeAluno = null;
         
         try{
-            st.execute("SELECT nome_aluno FROM alunos WHERE ra_aluno = '"+raAluno+"'");
-            rs = st.getResultSet();
+            st.execute("SELECT nome_aluno FROM alunos WHERE ra_aluno = '" + raAluno + "'");
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getString(1);
+            while (rs.next()) {
+                nomeAluno = rs.getString(1);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return nomeAluno;
     }
     
-    public String retornaSerieAluno(String raAluno){
-        String aux = null;
-        ResultSet rs = null;
-        
-        try{
-            st.execute("SELECT serie_aluno FROM alunos WHERE ra_aluno = '"+raAluno+"'");
-            rs = st.getResultSet();
+    public String retornaSerieAluno(String raAluno) {
+        String serieAluno = null;
+
+        try {
+            st.execute("SELECT serie_aluno FROM alunos WHERE ra_aluno = '" + raAluno + "'");
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){
-                aux = rs.getString(1);
+            while (rs.next()) {
+                serieAluno = rs.getString(1);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return aux;
+        return serieAluno;
     }
     
-    public boolean realizaEmprestimo(Emprestimo emp){
-        String sql;
-        
-        try{
-            sql  = "INSERT INTO emprestimos VALUES (";
+    public boolean realizaEmprestimo(Emprestimo emp) {
+        try {
+            String sql  = "INSERT INTO emprestimos VALUES (";
             sql += emp.getNumeroLivro();
             sql += ", '";
             sql += emp.getRaAluno();
@@ -421,86 +390,84 @@ public class ConexaoBD {
             sql += "', '";
             sql += emp.getDataPrevista();
             sql += "', null)";
+            
             st.execute(sql);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
 
-    public ArrayList consultaEmprestimo(Emprestimo emp){
-        int flag = 0;
-        String sql;
-        ResultSet rs = null;
+    public ArrayList consultaEmprestimo(Emprestimo emp) {
         ArrayList res = new ArrayList();
         Emprestimo empAux;
+        int flag = 0;
 
-        try{
-            sql = "SELECT * FROM emprestimos WHERE "; 
-            if(!emp.getNumeroLivro().equals("")){
+        try {
+            String sql = "SELECT * FROM emprestimos WHERE ";
+            
+            if (!emp.getNumeroLivro().equals("")) {
                 sql += "numero_livro = ";
                 sql += emp.getNumeroLivro();
                 flag = 1;
             }
             
-            if(!emp.getRaAluno().equals("")){
-                if(flag == 1){
+            if (!emp.getRaAluno().equals("")) {
+                if (flag == 1) {
                     sql += " AND ";
                 }
+                
                 sql += "ra_aluno = '";
                 sql += emp.getRaAluno();
                 sql += "'";
                 flag = 1;
-            }
-            else{
+            } else {
                 flag = 0;
             }
             
-            if(!emp.getDataEmprestimo().equals("  /  /    ")){
-                if(flag == 1){
+            if (!emp.getDataEmprestimo().equals("  /  /    ")) {
+                if (flag == 1) {
                     sql += " AND ";
                 }
+                
                 sql += "data_retirada = '";
                 sql += emp.getDataEmprestimo();
                 sql += "'";
                 flag = 1;
-            }
-            else{
+            } else {
                 flag = 0;
             }
             
-            if(!emp.getDataPrevista().equals("  /  /    ")){
-                if(flag == 1){
+            if (!emp.getDataPrevista().equals("  /  /    ")) {
+                if (flag == 1) {
                     sql += " AND ";
                 }
+                
                 sql += "data_prevista = '";
                 sql += emp.getDataPrevista();
                 sql += "'";
             }
             
             st.execute(sql);
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
 
-            while(rs.next()){                
+            while (rs.next()) {                
                 empAux = new Emprestimo(rs.getString(3),rs.getString(5),rs.getString(2),rs.getString(1), rs.getString(4));
-
                 res.add(empAux);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         return res;
     }
 
-    public boolean alteraData(Emprestimo emp){
-        String sql;
-        
-        try{
-            sql  = "UPDATE emprestimos SET data_devolucao = '";
+    public boolean alteraData(Emprestimo emp) {
+        try {
+            String sql  = "UPDATE emprestimos SET data_devolucao = '";
             sql += emp.getDataDevolucao();
             sql += "' WHERE numero_livro = ";
             sql += emp.getNumeroLivro();
@@ -511,45 +478,40 @@ public class ConexaoBD {
             sql += "'";
 
             st.execute(sql);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            
             return false;
         }
+        
         return true;
     }
     
-    public ArrayList livrosEmprestados(){
-        ResultSet rs = null;
+    public ArrayList livrosEmprestados() {
         ArrayList res = new ArrayList();
         Emprestimo empAux;
 
         try{
             st.execute("SELECT * FROM emprestimos WHERE data_devolucao IS NULL ORDER BY data_prevista");
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
 
-            while(rs.next()){                
+            while (rs.next()) {                
                 empAux = new Emprestimo(rs.getString(3),rs.getString(5),rs.getString(2),rs.getString(1), rs.getString(4));
-
                 res.add(empAux);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         return res;
     }
     
-    public ArrayList relatorio(String dataIni, String dataFim, String genero){
-        ConexaoBD conn = new ConexaoBD();
-        String sql, serie;
-        ResultSet rs = null;
+    public ArrayList relatorio(String dataIni, String dataFim, String genero) {
         ArrayList res = new ArrayList();
         EmprestimosPorSerie empAux;
 
-        try{
-            sql = "SELECT a.serie_aluno, COUNT(a.serie_aluno) AS quantidade "
+        try {
+            String sql = "SELECT a.serie_aluno, COUNT(a.serie_aluno) AS quantidade "
                     + "FROM emprestimos AS e "
                     + "JOIN livros AS l ON e.numero_livro = l.numero_livro "
                     + "JOIN alunos AS a ON CAST(e.ra_aluno AS VARCHAR(15)) = a.ra_aluno "
@@ -560,7 +522,7 @@ public class ConexaoBD {
             sql += dataFim;
             sql += "' ";
             
-            if(!genero.equals("")){
+            if (!genero.equals("")) {
                 sql += "AND l.genero_livro = '";
                 sql += genero;
                 sql += "' ";
@@ -569,15 +531,14 @@ public class ConexaoBD {
             sql += "GROUP BY a.serie_aluno ORDER BY a.serie_aluno;";
             
             st.execute(sql);
-            rs = st.getResultSet();
+            ResultSet rs = st.getResultSet();
             
-            while(rs.next()){  
+            while (rs.next()) {  
                 empAux = new EmprestimosPorSerie(rs.getString(1), rs.getInt(2));
                 res.add(empAux);
             }
-        }
-        catch(SQLException e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
             
         return res;

@@ -265,7 +265,7 @@ public class Relatorio extends javax.swing.JFrame {
                     return;
                 }
             } catch(ParseException ex) {
-                Logger.getLogger(AlterarData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             String dataIni, dataFim, genero;
