@@ -32,7 +32,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -293,45 +292,36 @@ public class CadastrarLivro extends javax.swing.JFrame {
                 .addGap(25, 25, 25))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btSairActionPerformed
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         this.dispose();
         Index t = new Index();
         t.setVisible(true);
     }//GEN-LAST:event_btVoltarActionPerformed
-        
+
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         ConexaoBD conn = new ConexaoBD();
         Livro l = new Livro(null, null, null, null, null, null, 1);
-        
+
         if (tituloLivroField.getText().equals("") || autorLivroField.getText().equals("") || generLivroComboBox.getSelectedItem().equals("") ||
-                numLivroField.getText().equals("") || estanteLivroComboBox.getSelectedItem().equals("") || editoraLivroField.getText().equals("")) {
+            numLivroField.getText().equals("") || estanteLivroComboBox.getSelectedItem().equals("") || editoraLivroField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Falha ao cadastrar livro! Campo(s) obrigatório(s) em branco.");
         } else {
             l.setTituloLivro(tituloLivroField.getText());
@@ -340,11 +330,11 @@ public class CadastrarLivro extends javax.swing.JFrame {
             l.setNumLivro(numLivroField.getText());
             l.setEstanteLivro(estanteLivroComboBox.getSelectedItem().toString());
             l.setEditoraLivro(editoraLivroField.getText());
-            
-            if (!conn.buscaLivro(numLivroField.getText())) {                
+
+            if (!conn.buscaLivro(numLivroField.getText())) {
                 if (conn.insereLivro(l)) {
                     JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
-                    
+
                     tituloLivroField.setText(null);
                     autorLivroField.setText(null);
                     generLivroComboBox.setSelectedItem(null);
@@ -357,13 +347,9 @@ public class CadastrarLivro extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Erro! Livro já cadastrado.");
             }
-        }         
+        }
     }//GEN-LAST:event_btCadastrarActionPerformed
-
-    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_btSairActionPerformed
-
+        
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new CadastrarLivro().setVisible(true);
@@ -391,7 +377,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField numLivroField;

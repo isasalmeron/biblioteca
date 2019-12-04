@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import biblioteca.ConexaoBD;
 import biblioteca.models.Aluno;
+import biblioteca.models.Emprestimo;
 
 public class ResultadoConsultaAluno extends javax.swing.JFrame {
     
@@ -284,8 +285,24 @@ public class ResultadoConsultaAluno extends javax.swing.JFrame {
             a.setNomeAluno(nomeAlunoLabel.getText());
             a.setRaAluno(raAlunoLabel.getText());
             a.setSerieAluno(serieAlunoLabel.getText());
- 
-            if(conn.excluiAluno(a)){
+             
+            ArrayList listaEmprestimos = conn.livrosEmprestados();
+            
+            if (!listaEmprestimos.isEmpty()) {
+                Emprestimo emp;
+                int tamEmp = listaEmprestimos.size();
+
+                for (int i = 0; i < tamEmp; i++) {
+                    emp = (Emprestimo) listaEmprestimos.get(i);
+
+                    if (emp.getRaAluno().equals(a.getRaAluno().trim())) {
+                        JOptionPane.showMessageDialog(null, "Falha ao excluir cadastro do aluno! Aluno possui livro emprestado.");
+                        
+                        return;
+                    }
+                }
+            }
+            if (conn.excluiAluno(a)) {
                 JOptionPane.showMessageDialog(null, "Cadastro do aluno excluído com sucesso!");
                 
                 this.dispose();

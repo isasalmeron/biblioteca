@@ -25,6 +25,13 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
         initialize();
 
         resAux = listaLivros;
+        
+        if (resAux.size() == posicao) {
+            posicao = posicao - 1;
+        } else if (resAux.size() == 1) {
+            posicao = 0;
+        }
+
         posicaoAtual = posicao;
         livr = l;
 
@@ -318,8 +325,10 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
         
         if(opcao == 0){
             l.setNumLivro(numLivroLabel.getText());
-
-            if (conn.excluiLivro(l)) {
+            
+            if (conn.consultaStatus(l.getNumLivro()) == 0) {
+                JOptionPane.showMessageDialog(null, "Falha ao excluir livro do acervo! Livro econtra-se emprestado.");
+            } else if (conn.excluiLivro(l)) {
                 JOptionPane.showMessageDialog(null, "Livro excluído do acervo com sucesso!");
                 
                 resAux = conn.consultaLivro(livr);
@@ -333,7 +342,7 @@ public class ResultadoConsultaLivro extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Livro não encontrado!");
                 }     
             } else {
-                JOptionPane.showMessageDialog(null, "Falha ao excluir cadastro do aluno!");
+                JOptionPane.showMessageDialog(null, "Falha ao excluir livro do acervo!");
             }
         }
     }//GEN-LAST:event_btExcluirActionPerformed

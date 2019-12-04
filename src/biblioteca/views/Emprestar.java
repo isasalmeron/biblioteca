@@ -98,10 +98,13 @@ public class Emprestar extends javax.swing.JFrame {
 
         numLivroField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         numLivroField.setToolTipText("Informe o número do livro");
+        numLivroField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
         raAlunoField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         raAlunoField.setToolTipText("Informe o RA do aluno");
+        raAlunoField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
+        dtEmprestimoFormattedField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         try {
             dtEmprestimoFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -110,6 +113,7 @@ public class Emprestar extends javax.swing.JFrame {
         dtEmprestimoFormattedField.setToolTipText("Informe a data de empréstimo do livro");
         dtEmprestimoFormattedField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
+        dtDevolucaoFormattedField.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
         try {
             dtDevolucaoFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {

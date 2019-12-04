@@ -180,7 +180,9 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
         });
 
         dtDevolucaoLabel.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        dtDevolucaoLabel.setText("10/12/2019");
+        dtDevolucaoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dtDevolucaoLabel.setText("Não devolvido");
+        dtDevolucaoLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -196,7 +198,7 @@ public class ResultadoConsultaEmprestimo extends javax.swing.JFrame {
                         .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(56, 56, 56)
                 .addComponent(dtDevolucaoLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
